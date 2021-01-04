@@ -14,7 +14,9 @@ class ContactsSeeder extends Seeder
         foreach($addresses as $ma){
             $gender = $faker->randomElement(['male', 'female']);
             $birthday = $faker->dateTimeBetween('-60 years', '-29 years', 'Europe/Kiev');
-            $created_at = date('Y-m-d H:i:s');
+            $created_at_start = date($birthday->format('Y-m-d'), strtotime('+18 years'));
+            $created_at = $faker->dateTimeBetween($created_at_start, '-3 years', 'Europe/Kiev');;
+            $updated_at = $faker->dateTimeBetween($created_at, 'now', 'Europe/Kiev');
             $data = [
                 'address_id' => $ma["id"],
                 'first_name' => $faker->firstName($gender),
@@ -22,9 +24,9 @@ class ContactsSeeder extends Seeder
                 'last_name' => $faker->lastName($gender),
                 'phone' => $faker->phoneNumber,
                 'email' => $faker->email,
-                'birthday' => $birthday->format('Y-m-d H:i:s'),
-                'created_at' => $created_at,
-                'updated_at' => $created_at
+                'birthday' => $birthday->format('Y-m-d'),
+                'created_at' => $created_at->format('Y-m-d'),
+                'updated_at' => $updated_at->format('Y-m-d')
             ];
             // Using Query Builder
             $this->db->table('contacts')->insert($data);

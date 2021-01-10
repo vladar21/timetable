@@ -10,7 +10,7 @@ class ScheduleModel extends Model
     protected $returnType = 'array';
     //protected $useSoftDeletes = true;
 
-    protected $allowedFields = ['setting_id', 'doc_id'];
+    protected $allowedFields = ['id', 'doc_id', 'data_appointment', 'start_at', 'finish_at'];
 
     protected $useTimestamps = false;
     protected $createdField  = 'created_at';
@@ -20,4 +20,11 @@ class ScheduleModel extends Model
     protected $validationRules    = [];
     protected $validationMessages = [];
     protected $skipValidation     = false;
+
+    function fetch_all_schedule()
+    {
+        //$this->join('docs', 'schedules.doc_id = docs.id');
+        //$this->join('contacts', 'docs.contact_id = contacts.id');
+        return $this->findAll();
+    }
 }

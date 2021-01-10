@@ -16,22 +16,29 @@ class AppointmentsSeeder extends Seeder
         $lastPatient = $patients[count($patients) - 1];
 
         $modelSchedules = new ScheduleModel();
+        $scheduleIds = $modelSchedules->findColumn('id');
         $scheduless = $modelSchedules->findAll();
 
-        foreach($scheduless as $schedule){
+        $uniques = array();
 
-            if ($schedule['id']%2) continue;
+        foreach($scheduless as $schedule)
+        {
+            $uniques[] = $faker->unique()->numberBetween($scheduleIds[0], $scheduleIds[count($scheduleIds) - 1]);
 
-            $created_at = date("Y-m-d H:i:s");
-            $data = [
-                'patient_id' => $faker->numberBetween($patients[0],$lastPatient),
-                'schedule_id' => $schedule['id'],
-                'created_at' => $created_at,
-                'updated_at' => $created_at
-            ];
+            if ($faker->numberBetween(0, 1)) {
+                $created_at = date("Y-m-d H:i:s");
+                $data = [
+                    'patient_id' => $faker->numberBetween($patients[0], $patients[$lastPatient]),
+                    'schedule_id' => $schedule['id'],
+                    'created_at' => $created_at,
+                    'updated_at' => $created_at,
+                ];
 
-            // Using Query Builder
-            $this->db->table('appointments')->insert($data);
+                // Using Query Builder
+                $this->db->table('appointments')->insert($data);
+            }
+
         }
+        var_dump(count($uniques));
 	}
 }

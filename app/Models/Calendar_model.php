@@ -11,7 +11,7 @@ class Calendar_model extends Model
     protected $returnType = 'array';
     //protected $useSoftDeletes = true;
 
-    protected $allowedFields = ['doc_id', 'data_appointment', 'start_at', 'finish_at'];
+    protected $allowedFields = ['id', 'doc_id', 'data_appointment', 'start_at', 'finish_at'];
 
     protected $useTimestamps = false;
     protected $createdField  = 'created_at';
@@ -25,7 +25,7 @@ class Calendar_model extends Model
     function fetch_all_event()
     {
         $this->join('docs', 'doc_id = docs.id');
-        $this->join('contacts', 'docs.contact_id = contacts.id');
+        //$this->join('contacts', 'docs.contact_id = contacts.id');
         return $this->findAll();
     }
 

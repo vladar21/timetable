@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset='utf-8' />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="styleshee">
     <link href='../fullcalendar/main.css' rel='stylesheet' />
     <script src='../fullcalendar/main.js'></script>
     <script>
@@ -32,6 +33,7 @@
                 selectable: true,
                 dayMaxEvents: true, // allow "more" link when too many events
                 events: "calendar/load"
+
             });
 
             calendar.render();

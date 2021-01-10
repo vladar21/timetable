@@ -8,7 +8,7 @@ class AppointmentModel extends Model
     protected $primaryKey = 'id';
 
     protected $returnType = 'array';
-    protected $useSoftDeletes = true;
+    //protected $useSoftDeletes = true;
 
     protected $allowedFields = ['patient_id', 'schedule_id', 'is_patient_visited'];
 
@@ -20,4 +20,11 @@ class AppointmentModel extends Model
     protected $validationRules    = [];
     protected $validationMessages = [];
     protected $skipValidation     = false;
+
+    function fetch_all_appointments()
+    {
+        $this->join('schedules', 'schedule_id = schedules.id');
+        $this->join('contacts', 'patient_id = contacts.id');
+        return $this->findAll();
+    }
 }

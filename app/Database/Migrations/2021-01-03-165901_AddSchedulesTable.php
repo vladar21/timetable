@@ -13,15 +13,19 @@ class AddSchedulesTable extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'setting_id'    => [
-                'type'           => 'INT',
-                'constraint'     => 5,
-                'unsigned'       => true,
-            ],
             'doc_id'    => [
                 'type'           => 'INT',
                 'constraint'     => 5,
                 'unsigned'       => true,
+            ],
+            'data_appointment'    => [
+                'type'           => 'DATETIME',
+            ],
+            'start_at'    => [
+                'type'           => 'DATETIME',
+            ],
+            'finish_at'    => [
+                'type'           => 'DATETIME',
             ],
             'created_at'        => [
                 'type'           => 'DATETIME',
@@ -31,7 +35,6 @@ class AddSchedulesTable extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('setting_id','settings','id');
         $this->forge->addForeignKey('doc_id','docs','id');
         $this->forge->createTable('schedules', TRUE);
 	}

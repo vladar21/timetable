@@ -2,9 +2,15 @@
 <html>
 <head>
     <meta charset='utf-8' />
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="styleshee">
+
     <link href='../fullcalendar/main.css' rel='stylesheet' />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+
     <script src='../fullcalendar/main.js'></script>
+
     <script>
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -32,7 +38,31 @@
                 editable: true,
                 selectable: true,
                 dayMaxEvents: true, // allow "more" link when too many events
-                events: "calendar/load"
+                events: "calendar/load",
+
+                selectable: true,
+                selectHelper: true,
+                select: function () {
+                    var title = prompt('Event Title:');
+
+                    if (title) {
+
+
+                        $.ajax({
+                            url: "calendar/create",
+                            data: 'title=' + title ,
+                            type: "POST",
+                            success: function(msg) {
+                                var events = msg.events;
+                                callback(events);
+                            }
+                        });
+                        calendar.addEvent({
+                            title: title
+                        });
+                    }
+                    calendar.unselect()
+                },
 
             });
 

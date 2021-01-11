@@ -27,4 +27,10 @@ class AppointmentModel extends Model
         $this->join('contacts', 'patient_id = contacts.id');
         return $this->findAll();
     }
+
+    function insert($data)
+    {
+        var_dump($data);
+        //$this->db->insert('appointments', $data);
+    }
 }

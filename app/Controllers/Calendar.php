@@ -96,18 +96,18 @@ class Calendar extends BaseController
         echo json_encode($data);
     }
 
-//    function insert()
-//    {
-//        if($this->input->post('title'))
-//        {
-//            $data = array(
-//                'title'  => $this->input->post('title'),
-//                'start_event'=> $this->input->post('start'),
-//                'end_event' => $this->input->post('end')
-//            );
-//            $this->fullcalendar_model->insert_event($data);
-//        }
-//    }
+    function create()
+    {
+        $appointmentsModel = new AppointmentModel();
+
+        if($appointmentsModel->input->post('title'))
+        {
+            $data = array(
+                'title'  => $this->input->post('title'),
+            );
+            $appointmentsModel->insert($data);
+        }
+    }
 //
 //    function update()
 //    {

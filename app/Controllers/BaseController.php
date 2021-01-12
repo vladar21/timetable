@@ -43,4 +43,52 @@ class BaseController extends Controller
 		// $this->session = \Config\Services::session();
 	}
 
+    /**
+     * @param $content
+     */
+    public function layout($content)
+    {
+//        if ($this->is_ajax){
+//            return;
+//        }
+//        $this->styles[] = "tailwindcss.css";
+//        $this->styles[] = "header.css";
+//        $this->styles[] = "home.css";
+//        $this->styles[] = "footer.css";
+
+//        $this->scripts[] = "header.js";
+//        $this->scripts[] = "home.js";
+//
+//        $css_styles = "";
+//        if (!empty($this->styles)) {
+//            foreach ($this->styles as $key => $style) {
+//                $css_styles .= '<link rel="stylesheet" href="../css/'.$style.'" type="text/css" />';
+//            }
+//        }
+//        $js_scripts = "";
+//        if (!empty($this->scripts)){
+//            foreach ($this->scripts as $key => $script) {
+//                $js_scripts.='<script src="../js/' . $script . '" type="text/javascript"></script>';
+//            }
+//        }
+//        $js_js_init = "";
+//        foreach ($this->js_init as $key => $value) {
+//            $js_js_init.="try{" . $value . "}catch(e){alert('SERVER JS_INIT ERROR: '+e)}\n";
+//        }
+//
+//        $js_scripts.='<script type="text/javascript">$(function () {' . "\n" . $js_js_init . "\n" . '});</script>';
+
+//        $result = $content;
+
+        $data = [
+//            'styles' => $css_styles,
+//            'scripts' => $js_scripts,
+            'content' => isset($content) ? $content :  '',
+//            'base_url' => $this->base_url,
+            'header' => view('header_view'),
+            'footer' => view('footer_view'),
+        ];
+        echo view("layout", $data);
+    }
+
 }

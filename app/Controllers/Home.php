@@ -10,6 +10,20 @@ class Home extends BaseController
 		//return view('welcome_message');
 	}
 
-	//--------------------------------------------------------------------
+    public function register()
+    {
+        $data = [];
+        $content =  view('auth/register.php', $data);
+        return $this->layout($content);
+        //echo 'Hello World!';
+    }
+
+    public function login()
+    {
+        $data = [];
+        $content =  view('auth/login.php', $data);
+        return $this->layout($content);
+        //echo 'Hello World!';
+    }
 
 }

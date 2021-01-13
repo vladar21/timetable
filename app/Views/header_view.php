@@ -12,10 +12,10 @@
                     <a href="/calendar">Розклад лікарні</a>
                 </li>
                 <li class="my-2 mr-4 hover:text-gray-800 cursor-pointer">
-                    <a href="/auth/login">Увійти</a>
+                    <a href="/home/login">Увійти</a>
                 </li>
                 <li class="my-2 mr-4 hover:text-gray-800 cursor-pointer">
-                    <a href="/auth/register">Реєстрація</a>
+                    <a href="/home/register">Реєстрація</a>
                 </li>
             </ul>
         </nav>

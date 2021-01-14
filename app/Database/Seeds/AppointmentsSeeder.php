@@ -11,7 +11,7 @@ class AppointmentsSeeder extends Seeder
         $faker = \Faker\Factory::create("uk_UA");
 
         $modelPatients = new PatientModel();
-        $patients = $modelPatients->orderby('id')->findColumn('id');
+        $patients = $modelPatients->orderby('id', 'ASC')->findColumn('id');
 
         $lastPatient = $patients[count($patients) - 1];
 
@@ -27,8 +27,10 @@ class AppointmentsSeeder extends Seeder
 
             if ($faker->numberBetween(0, 1)) {
                 $created_at = date("Y-m-d H:i:s");
+                $patient_id = $faker->numberBetween($patients[0], $lastPatient);
+
                 $data = [
-                    'patient_id' => $faker->numberBetween($patients[0], $patients[$lastPatient]),
+                    'patient_id' => $patient_id,
                     'schedule_id' => $schedule['id'],
                     'created_at' => $created_at,
                     'updated_at' => $created_at,
@@ -39,6 +41,6 @@ class AppointmentsSeeder extends Seeder
             }
 
         }
-        var_dump(count($uniques));
+
 	}
 }

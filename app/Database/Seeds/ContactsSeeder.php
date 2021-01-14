@@ -25,6 +25,7 @@ class ContactsSeeder extends Seeder
                 'phone' => $faker->phoneNumber,
                 'email' => $faker->email,
                 'birthday' => $birthday->format('Y-m-d'),
+                'password' => password_hash('password', PASSWORD_DEFAULT),
                 'created_at' => $created_at->format('Y-m-d'),
                 'updated_at' => $updated_at->format('Y-m-d')
             ];

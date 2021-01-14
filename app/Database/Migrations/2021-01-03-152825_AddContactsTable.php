@@ -42,6 +42,10 @@ class AddContactsTable extends Migration
             'birthday'        => [
                 'type'           => 'DATETIME',
             ],
+            'password'        => [
+                'type'           => 'VARCHAR',
+                'constraint'     => 255,
+            ],
             'created_at'        => [
                 'type'           => 'DATETIME',
             ],

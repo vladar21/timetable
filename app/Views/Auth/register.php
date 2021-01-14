@@ -53,12 +53,7 @@
                     </label>
                     <input class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" id="phone" name="phone" type="phone">
                 </div>
-                <div class="md:w-1/2 px-3">
-                    <label class="uppercase tracking-wide text-black text-xs font-bold mb-2" for="email">
-                        Email
-                    </label>
-                    <input class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" id="email" name="email" type="email">
-                </div>
+
             </div>
             <h3>Адреса:</h3>
             <br>
@@ -114,11 +109,11 @@
             <h3>Аутентифікаційні дані:</h3>
             <br>
             <div class="-mx-2 md:flex mb-6">
-                <div class="md:w-1/2 px-3 mb-6 md:mb-0">
-                    <label class="uppercase tracking-wide text-black text-xs font-bold mb-2" for="login">
-                        Логін
+                <div class="md:w-1/2 px-3">
+                    <label class="uppercase tracking-wide text-black text-xs font-bold mb-2" for="email">
+                        Email
                     </label>
-                    <input class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" id="login" name="login" type="text">
+                    <input class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" id="email" name="email" type="email">
                 </div>
                 <div class="md:w-1/2 px-3">
                     <label class="uppercase tracking-wide text-black text-xs font-bold mb-2" for="password">

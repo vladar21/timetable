@@ -12,6 +12,7 @@ class Home extends BaseController
 
     public function register()
     {
+
         $data = [];
         $content =  view('auth/register.php', $data);
         return $this->layout($content);
@@ -20,6 +21,7 @@ class Home extends BaseController
 
     public function login()
     {
+
         $data = [];
         $content =  view('auth/login.php', $data);
         return $this->layout($content);

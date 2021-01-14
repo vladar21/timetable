@@ -1,7 +1,6 @@
 <?php namespace App\Controllers;
 
 use App\Models\AppointmentModel;
-use App\Models\Calendar_model;
 use App\Models\DocModel;
 use App\Models\ScheduleModel;
 

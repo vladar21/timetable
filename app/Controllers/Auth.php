@@ -17,8 +17,7 @@ class Auth extends BaseController
 
     public function login()
     {
-
-        $session = $this->session;
+        //$session = $this->session;
         $model = new ContactModel();
         $email = $this->request->getVar('email');
         $password = $this->request->getVar('password');
@@ -33,24 +32,30 @@ class Auth extends BaseController
                     'user_email'    => $data['email'],
                     'logged_in'     => TRUE
                 ];
-                $session->set($ses_data);
-                var_dump($ses_data);
+                //$session->set($ses_data);
+
+                $_SESSION['user_id'] = $data['id'];
+                $_SESSION['user_name'] = $data['last_name'];
+                $_SESSION['user_email'] = $data['email'];
+                $_SESSION['logged_in'] = TRUE;
+
                 return redirect()->to('/calendar');
             }else{
-                $session->setFlashdata('msg', 'Помилковий пароль');
-                return redirect()->to('/login');
+                //$session->setFlashdata('msg', 'Помилковий пароль');
+                $_SESSION['msg'] = 'Помилковий пароль';
+                return redirect()->to('/home/login');
             }
         }else{
-            $session->setFlashdata('msg', 'Email не знайдено');
-            return redirect()->to('/login');
+            //$session->setFlashdata('msg', 'Email не знайдено');
+            $_SESSION['msg'] = 'Email не знайдено';
+            return redirect()->to('/home/login');
         }
     }
 
     public function logout()
     {
-        $session = session();
-        $session->destroy();
-        return redirect()->to('/');
+        session_destroy();
+        return redirect()->to('/home/login');
     }
 
     // create

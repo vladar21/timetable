@@ -21,7 +21,6 @@ class Home extends BaseController
 
     public function login()
     {
-
         $data = [];
         $content =  view('auth/login.php', $data);
         return $this->layout($content);

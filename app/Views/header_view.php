@@ -11,12 +11,22 @@
                 <li class="my-2 mr-4 hover:text-gray-800 cursor-pointer">
                     <a href="../calendar">Розклад лікарні</a>
                 </li>
+                <?php if (!isset($_SESSION['logged_in'])): ?>
+
                 <li class="my-2 mr-4 hover:text-gray-800 cursor-pointer">
                     <a href="../home/login">Увійти</a>
                 </li>
                 <li class="my-2 mr-4 hover:text-gray-800 cursor-pointer">
                     <a href="../home/register">Реєстрація</a>
                 </li>
+
+                <?php else: ?>
+
+                    <li class="my-2 mr-4 hover:text-gray-800 cursor-pointer">
+                        <a href="../auth/logout">Вийти</a>
+                    </li>
+
+                <?php endif; ?>
             </ul>
         </nav>
     </div>

@@ -3,7 +3,7 @@
 use CodeIgniter\Model;
 
 
-class AddressModel extends Model
+class AddressModel extends BaseModel
 {
     protected $table      = 'address';
     protected $primaryKey = 'id';

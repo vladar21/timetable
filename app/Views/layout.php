@@ -102,7 +102,7 @@
     <title>Clinic's schedule</title>
 
 </head>
-<body class="font-sans text-2xl bg-white items-center flex flex-col m-0">
+<body class="font-sans text-xl bg-white items-center flex flex-col m-0">
     <div class="container">
         <?php echo $header;?>
 

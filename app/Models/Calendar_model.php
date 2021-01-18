@@ -3,7 +3,7 @@
 use CodeIgniter\Model;
 
 
-class Calendar_model extends Model
+class Calendar_model extends BaseModel
 {
     protected $table      = 'schedules';
     protected $primaryKey = 'id';

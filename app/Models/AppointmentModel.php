@@ -2,7 +2,7 @@
 
 use CodeIgniter\Model;
 
-class AppointmentModel extends Model
+class AppointmentModel extends BaseModel
 {
     protected $table      = 'appointments';
     protected $primaryKey = 'id';
@@ -25,12 +25,34 @@ class AppointmentModel extends Model
     {
         $this->join('schedules', 'schedule_id = schedules.id');
         $this->join('contacts', 'patient_id = contacts.id');
-        return $this->findAll();
+
+        $modelSchedule = new ScheduleModel();
+        $schedules = $this->arrayWithKeyFromValue($modelSchedule->findAll());
+
+        $modelPatient = new PatientModel();
+        $patients = $this->arrayWithKeyFromValue($modelPatient->findAll());
+
+        $modelContact = new ContactModel();
+        $contacts = $this->arrayWithKeyFromValue($modelContact->findAll());
+
+        $appointments = $this->arrayWithKeyFromValue($this->findAll());
+
+        $result = array();
+
+        foreach($appointments as $appointment){
+            $r = array();
+            $r['appointment'] = $appointment;
+            $r['schedule'] = $schedules[$appointment['schedule_id']];
+            $r['patient'] = $patients[$appointment['patient_id']];
+            $contact_id = $patients[$appointment['patient_id']]['contact_id'];
+            $r['contact'] = $contacts[$contact_id];
+            $result[] = $r;
+        }
+
+        return $result;
     }
 
-    function insert($data)
-    {
-        var_dump($data);
-        //$this->db->insert('appointments', $data);
-    }
+
+
+
 }

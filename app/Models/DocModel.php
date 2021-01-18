@@ -2,7 +2,7 @@
 
 use CodeIgniter\Model;
 
-class DocModel extends Model
+class DocModel extends BaseModel
 {
     protected $table      = 'docs';
     protected $primaryKey = 'id';

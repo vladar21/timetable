@@ -21,7 +21,7 @@
                     </div>
                     <div class="flex flex-col">
                         <div class="pt-2 text-gray-700 text-left uppercase">Це очманіло зручно</div>
-                        <div class="pt-4 text-gray-400 text-justify">Тикніть мишкою на будь-який вільний час у потрібного вам лікаря і на цьому все. Ви вже записані на прийом.</div>
+                        <div class="pt-4 text-gray-400 text-justify">Тикніть на будь-який вільний час у потрібного вам лікаря і на цьому все. Ви вже записані на прийом.</div>
                     </div>
                 </div>
             </div>

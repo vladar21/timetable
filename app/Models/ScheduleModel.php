@@ -2,7 +2,7 @@
 
 use CodeIgniter\Model;
 
-class ScheduleModel extends Model
+class ScheduleModel extends BaseModel
 {
     protected $table      = 'schedules';
     protected $primaryKey = 'id';

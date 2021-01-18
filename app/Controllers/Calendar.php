@@ -61,7 +61,7 @@ class Calendar extends BaseController
 
             $flag = 0;
             foreach($appointments as $appointment){
-                if ($appointment['schedule_id'] == $row['id']) {
+                if ($appointment['schedule']['id'] == $row['id']) {
                     $flag = 1;
                     break;
                 }

@@ -2,7 +2,7 @@
 
 use CodeIgniter\Model;
 
-class ContactModel extends Model
+class ContactModel extends BaseModel
 {
     protected $table      = 'contacts';
     protected $primaryKey = 'id';

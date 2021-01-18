@@ -9,15 +9,16 @@ use App\Models\ContactModel;
 use App\Models\PatientModel;
 
 //class Auth extends ResourceController
+//class Auth extends Controller
 class Auth extends BaseController
 {
     //use ResponseTrait;
 
+
     public function login()
     {
 
-        //$session = session();
-        $session = session();
+        $session = $this->session;
         $model = new ContactModel();
         $email = $this->request->getVar('email');
         $password = $this->request->getVar('password');

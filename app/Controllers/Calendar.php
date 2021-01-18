@@ -16,7 +16,7 @@ class Calendar extends BaseController
     public function index()
     {
         $data = [];
-        $content =  view('calendar/index.php', $data);
+        $content =  view('calendar/calendar.php', $data);
         return $this->layout($content);
         //echo view("calendar/index.php", array());
     }

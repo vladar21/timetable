@@ -40,7 +40,7 @@ class BaseController extends Controller
 		// Preload any models, libraries, etc, here.
 		//--------------------------------------------------------------------
 		// E.g.:
-		// $this->session = \Config\Services::session();
+		//$this->session = \Config\Services::session();
 	}
 
     /**
@@ -83,9 +83,9 @@ class BaseController extends Controller
         $data = [
 //            'styles' => $css_styles,
 //            'scripts' => $js_scripts,
+            'header' => view('header_view'),
             'content' => isset($content) ? $content :  '',
 //            'base_url' => $this->base_url,
-            'header' => view('header_view'),
             'footer' => view('footer_view'),
         ];
         echo view("layout", $data);

@@ -71,7 +71,7 @@ class Calendar extends BaseController
             if ($flag){
                 $data[] = array(
                     "title" => $title,
-//                "description" => $description,
+                    "description" => $title,
                     "start" => $row['start_at'],
                     "end"   => $row['finish_at'],
                     "color" => $color,
@@ -82,7 +82,7 @@ class Calendar extends BaseController
             }else{
                 $data[] = array(
                     "title" => $title,
-//                "description" => $description,
+                   "description" => $title,
                     "start" => $row['start_at'],
                     "end"   => $row['finish_at'],
                     "color" => $color,

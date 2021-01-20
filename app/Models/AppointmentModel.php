@@ -52,12 +52,13 @@ class AppointmentModel extends BaseModel
         return $result;
     }
 
-    public function check_exist_appointment($schedule_id, $patient_id) : bool
+    public function getScheduleIdsByPatientId($patient_id)
     {
-        $this->where('patient_id', $patient_id);
-        $result = $this->where('schedule_id', $schedule_id)->first();
+        $modelAppointment = new AppointmentModel();
+        $modelAppointment->where('patient_id', $patient_id);
+        $result = $this->findColumn('schedule_id');
 
-        return ($result) ? true : false;
+        return $result;
     }
 
 

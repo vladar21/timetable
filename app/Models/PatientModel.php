@@ -20,4 +20,10 @@ class PatientModel extends BaseModel
     protected $validationRules    = [];
     protected $validationMessages = [];
     protected $skipValidation     = false;
+
+    public function getPatientByContactId ($contact_id)
+    {
+        $patient = $this->where('contact_id', $contact_id)->first();
+        return $patient['id'];
+    }
 }

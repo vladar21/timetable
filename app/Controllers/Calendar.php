@@ -2,6 +2,7 @@
 
 use App\Models\AppointmentModel;
 use App\Models\DocModel;
+use App\Models\PatientModel;
 use App\Models\ScheduleModel;
 
 
@@ -30,11 +31,16 @@ class Calendar extends BaseController
 
         //$eventModel = new Calendar_model();
         //$event_data = $eventModel->fetch_all_event();
+        $contact_id = $_SESSION['user_id'];
+        $patientModel = new PatientModel();
+        $patient_id = $patientModel->getPatientByContactId($contact_id);
 
         $schedulessModel = new ScheduleModel();
-        $event_data = $schedulessModel->fetch_all_schedule();
+        $scheduless = $schedulessModel->fetch_all_schedule();
+
 
         $appointmentsModel = new AppointmentModel();
+        $allScheduleForCurrentUser = $appointmentsModel->getScheduleIdsByPatientId($patient_id);
         $appointments = $appointmentsModel->fetch_all_appointments();
 
         $docModel = new DocModel();
@@ -46,52 +52,43 @@ class Calendar extends BaseController
             $docColors[$docId] = $faker->hexcolor;
         }
 
-
-        foreach($event_data as $row)
+        foreach($scheduless as $schedule)
         {
-            $color = $docColors[$row['doc_id']];
+            $color = $docColors[$schedule['doc_id']];
 
             //$schedule_id = in_array($row['id'], array_column($appointments, 'schedule_id')) ? $row['id'] : '';
 //            $description = ($schedule_id != '') ? 'reserved': 'free';
 
             $title = '';
             foreach($docs as $doc){
-                if ($doc['id'] == $row['doc_id']) {
+                if ($doc['id'] == $schedule['doc_id']) {
                     $title = $doc['speciality'];
                     break;
                 }
             }
 
-            $flag = 0;
-            foreach($appointments as $appointment){
-                if ($appointment['appointment']['schedule_id'] == $row['id']) {
-                    $flag = 1;
-                    break;
-                }
-            }
-
-            if ($flag){
-                $data[] = array(
+            if (in_array($schedule['id'], $allScheduleForCurrentUser)){
+                $event[] = array(
                     "title" => $title,
                     "description" => $title,
-                    "start" => $row['start_at'],
-                    "end"   => $row['finish_at'],
+                    "start" => $schedule['start_at'],
+                    "end"   => $schedule['finish_at'],
                     "color" => $color,
-                    "schedule_id" => $row['id'],
-                    "patient_id" => '',
+                    "schedule_id" => $schedule['id'],
+                    "patient_id" => $_SESSION['user_id'],
                     "backgroundColor" => '#ff0000',
                     "borderColor" => '#800000'
                 );
             }else{
-                $data[] = array(
+                $event[] = array(
                     "title" => $title,
                     "description" => $title,
-                    "start" => $row['start_at'],
-                    "end"   => $row['finish_at'],
+                    "start" => $schedule['start_at'],
+                    "end"   => $schedule['finish_at'],
                     "color" => $color,
-                    "schedule_id" => $row['id'],
+                    "schedule_id" => $schedule['id'],
                     "patient_id" => $_SESSION['user_id'],
-                    //"backgroundColor" => 'green',
+                    "backgroundColor" => 'green',
                     "borderColor" => 'green'
                 );
             }
@@ -99,7 +96,7 @@ class Calendar extends BaseController
 
         $this->response->setContentType('application/json');
 
-        echo json_encode($data);
+        echo json_encode($event);
     }
 
     function create()
@@ -110,21 +107,19 @@ class Calendar extends BaseController
         ];
 
         $appointmentsModel = new AppointmentModel();
+        $schedulesIds = $appointmentsModel->getScheduleIdsByPatientId($data['patient_id']);
 
-        if (!$appointmentsModel->check_exist_appointment($data['patient_id'], $data['schedule_id'])){
-
+        if (in_array($data['schedule_id'], $schedulesIds)){
+            $msg =  'Місто вже зайнято! Спробуйте повторити на іншу дату.';
+        }
+        else{
             if($appointmentsModel->save($data))
             {
                 $msg =  'Успіх! Ви записані на прийом до лікаря.';
-                $_SESSION['msg'] = $msg;
-                return redirect()->to('/calendar');
             }
         }
-        else{
-            $msg =  'Місто вже зайнято! Спробуйте повторити на іншу дату.';
-            $_SESSION['msg'] = $msg;
-            return redirect()->to('/calendar');
-        }
+        $_SESSION['msg'] = $msg;
+        return redirect()->to('/calendar');
 
 
     }

@@ -21,7 +21,7 @@ class AppointmentModel extends BaseModel
     protected $validationMessages = [];
     protected $skipValidation     = false;
 
-    function fetch_all_appointments()
+    function fetch_all_appointments() : array
     {
         $this->join('schedules', 'schedule_id = schedules.id');
         $this->join('contacts', 'patient_id = contacts.id');
@@ -52,6 +52,13 @@ class AppointmentModel extends BaseModel
         return $result;
     }
 
+    public function check_exist_appointment($schedule_id, $patient_id) : bool
+    {
+        $this->where('patient_id', $patient_id);
+        $result = $this->where('schedule_id', $schedule_id)->first();
+
+        return ($result) ? true : false;
+    }
 
 
 

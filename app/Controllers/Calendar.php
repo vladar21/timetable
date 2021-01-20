@@ -16,6 +16,9 @@ class Calendar extends BaseController
     public function index()
     {
         $data = [];
+        if (isset($_SESSION['msg'])) {
+            $data['msg'] = $_SESSION['msg'];
+        }
         $content =  view('calendar/calendar.php', $data);
         return $this->layout($content);
         //echo view("calendar/index.php", array());
@@ -61,12 +64,11 @@ class Calendar extends BaseController
 
             $flag = 0;
             foreach($appointments as $appointment){
-                if ($appointment['schedule']['id'] == $row['id']) {
+                if ($appointment['appointment']['schedule_id'] == $row['id']) {
                     $flag = 1;
                     break;
                 }
             }
-
 
             if ($flag){
                 $data[] = array(
@@ -76,17 +78,19 @@ class Calendar extends BaseController
                     "end"   => $row['finish_at'],
                     "color" => $color,
                     "schedule_id" => $row['id'],
+                    "patient_id" => '',
                     "backgroundColor" => '#ff0000',
                     "borderColor" => '#800000'
                 );
             }else{
                 $data[] = array(
                     "title" => $title,
-                   "description" => $title,
+                    "description" => $title,
                     "start" => $row['start_at'],
                     "end"   => $row['finish_at'],
                     "color" => $color,
-                    "schedule_id" => '',
+                    "schedule_id" => $row['id'],
+                    "patient_id" => $_SESSION['user_id'],
                     //"backgroundColor" => 'green',
                     "borderColor" => 'green'
                 );
@@ -100,15 +104,29 @@ class Calendar extends BaseController
 
     function create()
     {
+        $data = [
+            'patient_id'  =>  $this->request->getVar('patient_id'),
+            'schedule_id' =>  $this->request->getVar('schedule_id')
+        ];
+
         $appointmentsModel = new AppointmentModel();
 
-        if($appointmentsModel->input->post('title'))
-        {
-            $data = array(
-                'title'  => $this->input->post('title'),
-            );
-            $appointmentsModel->insert($data);
+        if (!$appointmentsModel->check_exist_appointment($data['patient_id'], $data['schedule_id'])){
+
+            if($appointmentsModel->save($data))
+            {
+                $msg =  'Успіх! Ви записані на прийом до лікаря.';
+                $_SESSION['msg'] = $msg;
+                return redirect()->to('/calendar');
+            }
         }
+        else{
+            $msg =  'Місто вже зайнято! Спробуйте повторити на іншу дату.';
+            $_SESSION['msg'] = $msg;
+            return redirect()->to('/calendar');
+        }
+
+
     }
 //
 //    function update()

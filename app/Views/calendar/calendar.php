@@ -19,6 +19,7 @@
             slotMinTime: '08:00:00',
             slotMaxTime: '18:00:00',
             expandRows: true,
+            selectAllow: true,
 
             initialDate: '2021-01-18',
             navLinks: true, // can click day/week names to navigate views
@@ -33,30 +34,53 @@
             events: "calendar/load",
 
             selectable: true,
-            selectHelper: true,
-            select: function () {
-                var title = prompt('Event Title:');
-
-                if (title) {
-
-
-                    $.ajax({
-                        url: "calendar/create",
-                        data: 'title=' + title ,
-                        type: "POST",
-                        success: function(msg) {
-                            var events = msg.events;
-                            callback(events);
-                        }
-                    });
-                    calendar.addEvent({
-                        title: title
-                    });
-                }
-                calendar.unselect()
+            select: function (info) {
+                alert('selected ' + info.startStr + ' to ' + info.endStr);
+                // var title = prompt('Event Title:');
+                //
+                // if (title) {
+                //
+                //
+                //     $.ajax({
+                //         url: "calendar/create",
+                //         data: 'title=' + title ,
+                //         type: "POST",
+                //         success: function(msg) {
+                //             var events = msg.events;
+                //             callback(events);
+                //         }
+                //     });
+                //     calendar.addEvent({
+                //         title: title
+                //     });
+                // }
+                // calendar.unselect()
             },
+            eventClick: function(info) {
+                var eventObj = info.event;
+                var schedule_id = eventObj.extendedProps['schedule_id'];
+                var patient_id = eventObj.extendedProps['patient_id'];
 
+                $.ajax({
+                    url: "calendar/create",
+                    data: 'schedule_id=' + schedule_id + '&patient_id=' + patient_id,
+                    type: "POST",
+                    success: function() {
+                        calendar.refetchEvents();
+                        // var events = msg.events;
+                        // callback(events);
+                    }
+                });
+
+
+
+            },
+            //dateClick: function(info) {
+            //     alert('clicked ' + info.dateStr);
+            // },
         });
+
+
 
         calendar.render();
     });

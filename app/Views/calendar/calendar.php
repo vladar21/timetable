@@ -6,11 +6,26 @@
 <script>
 
     document.addEventListener('DOMContentLoaded', function() {
+
+        var iv = localStorage.getItem("fcDefaultView") || 'timeGridWeek'
+        var id = localStorage.getItem('fcDefaultDate') || new Date
+
         var calendarEl = document.getElementById('calendar');
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
+            // делаем так, чтобы при перезагрузке страницы мы оставались в том же виде, с той же датой
+            // ------------------------------ //
+            initialView: iv,
+            initialDate: id,
+            datesSet: function (dateInfo) {
+                localStorage.setItem("fcDefaultView", dateInfo.view.type);
+                localStorage.setItem("fcDefaultDate", dateInfo.startStr);
+            },
+            // ------------------------------ //
+            //initialDate: '2021-01-18',
+            //defaultDate: '2021-01-18',
+
             expandRows: true,
-            allDay: false,
             headerToolbar: {
                 left: 'prev,next today',
                 center: 'title',
@@ -20,7 +35,6 @@
             slotDuration: '00:15:00',
             slotMinTime: '08:00:00',
             slotMaxTime: '18:00:00',
-
 
             //selectAllow: true,
 
@@ -46,7 +60,7 @@
                     data: 'schedule_id=' + schedule_id + '&patient_id=' + patient_id,
                     type: "POST",
                     success: function() {
-                        calendar.refetchEvents();
+                        //calendar.refetchEvents();
 
                         location.reload();
                         return false;

@@ -101,7 +101,7 @@ class Calendar extends BaseController
         if (in_array($data['schedule_id'], $schedulesIds)){
             $patientID = $appointmentsModel->getPatientIdByScheduleId($data['schedule_id']);
             if ($data['patient_id'] != $patientID){
-                $msg =  'Місто вже зайнято! Спробуйте повторити на іншу дату.';
+                $msg =  'Місто вже зайнято! Спробуйте на іншу дату.';
             }
             else{
                 $appointmentsModel->cancelAppointment($data['schedule_id']);

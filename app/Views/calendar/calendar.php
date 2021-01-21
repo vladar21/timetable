@@ -9,6 +9,8 @@
         var calendarEl = document.getElementById('calendar');
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
+            expandRows: true,
+            allDay: false,
             headerToolbar: {
                 left: 'prev,next today',
                 center: 'title',
@@ -18,8 +20,9 @@
             slotDuration: '00:15:00',
             slotMinTime: '08:00:00',
             slotMaxTime: '18:00:00',
-            expandRows: true,
-            selectAllow: true,
+
+
+            //selectAllow: true,
 
             initialDate: '2021-01-18',
             navLinks: true, // can click day/week names to navigate views
@@ -66,8 +69,10 @@
                     type: "POST",
                     success: function() {
                         calendar.refetchEvents();
-                        // var events = msg.events;
-                        // callback(events);
+
+                        location.reload();
+                        return false;
+
                     }
                 });
 

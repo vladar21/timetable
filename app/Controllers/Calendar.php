@@ -9,14 +9,11 @@ use App\Models\ScheduleModel;
 class Calendar extends BaseController
 {
 
-    public function __construct()
-    {
-       // $this->load->model("calendar_model");
 
-    }
 
     public function index()
     {
+
         $data = [];
         if (isset($_SESSION['msg'])) {
             $data['msg'] = $_SESSION['msg'];
@@ -28,6 +25,7 @@ class Calendar extends BaseController
 
     function load()
     {
+
         $faker = \Faker\Factory::create("uk_UA");
 
         //$eventModel = new Calendar_model();
@@ -82,7 +80,7 @@ class Calendar extends BaseController
                         "schedule_id" => $schedule['id'],
                         "patient_id" => $_SESSION['user_id'],
                         "backgroundColor" => '#ff0000',
-                        "borderColor" => '#800000'
+                        "borderColor" => '#800000',
                     );
                 }else{
                     $event[] = array(
@@ -94,7 +92,7 @@ class Calendar extends BaseController
                         "schedule_id" => $schedule['id'],
                         "patient_id" => $_SESSION['user_id'],
                         "backgroundColor" => 'green',
-                        "borderColor" => 'green'
+                        "borderColor" => 'green',
                     );
                 }
             }
@@ -125,8 +123,11 @@ class Calendar extends BaseController
                 $msg =  'Успіх! Ви записані на прийом до лікаря.';
             }
         }
-        $_SESSION['msg'] = $msg;
-        return redirect()->to('/calendar');
+        $data = [
+            'msg' => $msg,
+        ];
+        $this->session->set($data);
+//        return redirect()->to('/calendar');
 
 
     }

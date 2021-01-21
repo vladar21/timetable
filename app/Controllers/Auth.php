@@ -17,7 +17,7 @@ class Auth extends BaseController
 
     public function login()
     {
-        //session_start();
+
         //$session = $this->session;
         $model = new ContactModel();
         $email = $this->request->getVar('email');
@@ -91,7 +91,7 @@ class Auth extends BaseController
             'birthday'  => $this->request->getVar('birthday'),
         ];
         //$modelContact->insert($dataContact);
-        $modelContact->save($dataContact);
+        $user_id = $modelContact->save($dataContact);
 
         $contact_id = $modelContact->insertID;
 
@@ -103,14 +103,16 @@ class Auth extends BaseController
         //$modelPatient->insert($dataPatient);
         $modelPatient->save($dataPatient);
 
-        $response = [
-            'status'   => 201,
-            'error'    => null,
-            'messages' => [
-                'success' => 'Ви все зробили чудово. Реєстрація пройшла успішно.'
-            ]
+        $data = [
+            'msg' => 'Ви все зробили чудово. Реєстрація пройшла успішно.',
+            'user_id'       => $user_id,
+            'user_name'     => $dataContact['last_name'],
+            'user_email'    => $dataContact['email'],
+            'logged_in'     => TRUE
         ];
-        //return $this->respondCreated($response);
+
+        $this->session->set($data);
+
         return redirect()->to('/calendar');
     }
 

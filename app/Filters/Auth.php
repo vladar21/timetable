@@ -11,7 +11,8 @@ class Auth implements FilterInterface
         // if user not logged in
         if(! isset($_SESSION['logged_in'])){
             // then redirct to login page
-            return redirect()->to('../home/login');
+
+            return redirect()->to('home/login');
         }
     }
 

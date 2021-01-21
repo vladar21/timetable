@@ -1,5 +1,6 @@
 <?php namespace App\Database\Seeds;
 
+use App\Models\AppointmentModel;
 use App\Models\PatientModel;
 use App\Models\ScheduleModel;
 use CodeIgniter\Database\Seeder;
@@ -10,34 +11,41 @@ class AppointmentsSeeder extends Seeder
 	{
         $faker = \Faker\Factory::create("uk_UA");
 
-        $modelPatients = new PatientModel();
-        $patients = $modelPatients->orderby('id', 'ASC')->findColumn('id');
+        $appointmentsModel = new AppointmentModel();
 
-        $lastPatient = $patients[count($patients) - 1];
+        $modelPatients = new PatientModel();
+        $patients = $modelPatients->findColumn('id');
 
         $modelSchedules = new ScheduleModel();
-        $scheduleIds = $modelSchedules->findColumn('id');
+        //$scheduleIds = $modelSchedules->findColumn('id');
         $scheduless = $modelSchedules->findAll();
 
-        $uniques = array();
+        //$uniques = array();
 
         foreach($scheduless as $schedule)
         {
-            $uniques[] = $faker->unique()->numberBetween($scheduleIds[0], $scheduleIds[count($scheduleIds) - 1]);
+            //$uniques[] = $faker->unique()->numberBetween($scheduleIds[0], $scheduleIds[count($scheduleIds) - 1]);
 
             if ($faker->numberBetween(0, 1)) {
                 $created_at = date("Y-m-d H:i:s");
-                $patient_id = $faker->numberBetween($patients[0], $lastPatient);
 
-                $data = [
-                    'patient_id' => $patient_id,
-                    'schedule_id' => $schedule['id'],
-                    'created_at' => $created_at,
-                    'updated_at' => $created_at,
-                ];
+                $patient_id = $faker->randomElement($patients);
 
-                // Using Query Builder
-                $this->db->table('appointments')->insert($data);
+                $allScheduleForCurrentUser = $appointmentsModel->getScheduleIdsByPatientId($patient_id);
+
+                if (!$allScheduleForCurrentUser || !in_array($schedule['id'], $allScheduleForCurrentUser)) {
+                    $data = [
+                        'patient_id' => $patient_id,
+                        'schedule_id' => $schedule['id'],
+                        'created_at' => $created_at,
+                        'updated_at' => $created_at,
+                    ];
+
+                    // Using Query Builder
+                    $this->db->table('appointments')->insert($data);
+                }
+
+
             }
 
         }

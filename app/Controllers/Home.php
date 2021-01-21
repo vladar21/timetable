@@ -12,7 +12,6 @@ class Home extends BaseController
 
     public function register()
     {
-
         $data = [];
         $content =  view('auth/register.php', $data);
         return $this->layout($content);

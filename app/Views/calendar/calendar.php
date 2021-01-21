@@ -31,9 +31,8 @@
             editable: true,
             selectable: true,
             dayMaxEvents: true, // allow "more" link when too many events
-            events: "calendar/load",
+            events: "../calendar/load",
 
-            selectable: true,
             select: function (info) {
                 alert('selected ' + info.startStr + ' to ' + info.endStr);
                 // var title = prompt('Event Title:');
@@ -62,7 +61,7 @@
                 var patient_id = eventObj.extendedProps['patient_id'];
 
                 $.ajax({
-                    url: "calendar/create",
+                    url: "../calendar/create",
                     data: 'schedule_id=' + schedule_id + '&patient_id=' + patient_id,
                     type: "POST",
                     success: function() {

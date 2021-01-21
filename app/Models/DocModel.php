@@ -20,4 +20,11 @@ class DocModel extends BaseModel
     protected $validationRules    = [];
     protected $validationMessages = [];
     protected $skipValidation     = false;
+
+    public function getDocByContactId ($contact_id)
+    {
+        $doc = $this->where('contact_id', $contact_id)->first();
+        $result = (isset($doc)) ? $doc['id'] : -1;
+        return $result;
+    }
 }

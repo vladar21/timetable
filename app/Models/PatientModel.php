@@ -24,6 +24,8 @@ class PatientModel extends BaseModel
     public function getPatientByContactId ($contact_id)
     {
         $patient = $this->where('contact_id', $contact_id)->first();
-        return $patient['id'];
+        $result = (isset($patient)) ? $patient['id'] : -1;
+        return $result;
     }
+
 }

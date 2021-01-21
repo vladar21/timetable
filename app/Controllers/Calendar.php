@@ -12,6 +12,7 @@ class Calendar extends BaseController
     public function __construct()
     {
        // $this->load->model("calendar_model");
+
     }
 
     public function index()
@@ -40,59 +41,65 @@ class Calendar extends BaseController
 
 
         $appointmentsModel = new AppointmentModel();
-        $allScheduleForCurrentUser = $appointmentsModel->getScheduleIdsByPatientId($patient_id);
-        $appointments = $appointmentsModel->fetch_all_appointments();
 
-        $docModel = new DocModel();
-        $docs = $docModel->findAll();
-        $docsIds = $docModel->findColumn('id');
-        $docColors = array();
+        if ($patient_id == -1){
+            // это значати, что авторизовался не пациент (доктор)
+        } else{
+            $allScheduleForCurrentUser = $appointmentsModel->getScheduleIdsByPatientId($patient_id);
+            $appointments = $appointmentsModel->fetch_all_appointments();
 
-        foreach($docsIds as $docId){
-            $docColors[$docId] = $faker->hexcolor;
-        }
+            $docModel = new DocModel();
+            $docs = $docModel->findAll();
+            $docsIds = $docModel->findColumn('id');
+            $docColors = array();
 
-        foreach($scheduless as $schedule)
-        {
-            $color = $docColors[$schedule['doc_id']];
+            foreach($docsIds as $docId){
+                $docColors[$docId] = $faker->hexcolor;
+            }
 
-            //$schedule_id = in_array($row['id'], array_column($appointments, 'schedule_id')) ? $row['id'] : '';
+            foreach($scheduless as $schedule)
+            {
+                $color = $docColors[$schedule['doc_id']];
+
+                //$schedule_id = in_array($row['id'], array_column($appointments, 'schedule_id')) ? $row['id'] : '';
 //            $description = ($schedule_id != '') ? 'reserved': 'free';
 
-            $title = '';
-            foreach($docs as $doc){
-                if ($doc['id'] == $schedule['doc_id']) {
-                    $title = $doc['speciality'];
-                    break;
+                $title = '';
+                foreach($docs as $doc){
+                    if ($doc['id'] == $schedule['doc_id']) {
+                        $title = $doc['speciality'];
+                        break;
+                    }
+                }
+
+                if (in_array($schedule['id'], $allScheduleForCurrentUser)){
+                    $event[] = array(
+                        "title" => $title,
+                        "description" => $title,
+                        "start" => $schedule['start_at'],
+                        "end"   => $schedule['finish_at'],
+                        "color" => $color,
+                        "schedule_id" => $schedule['id'],
+                        "patient_id" => $_SESSION['user_id'],
+                        "backgroundColor" => '#ff0000',
+                        "borderColor" => '#800000'
+                    );
+                }else{
+                    $event[] = array(
+                        "title" => $title,
+                        "description" => $title,
+                        "start" => $schedule['start_at'],
+                        "end"   => $schedule['finish_at'],
+                        "color" => $color,
+                        "schedule_id" => $schedule['id'],
+                        "patient_id" => $_SESSION['user_id'],
+                        "backgroundColor" => 'green',
+                        "borderColor" => 'green'
+                    );
                 }
             }
-
-            if (in_array($schedule['id'], $allScheduleForCurrentUser)){
-                $event[] = array(
-                    "title" => $title,
-                    "description" => $title,
-                    "start" => $schedule['start_at'],
-                    "end"   => $schedule['finish_at'],
-                    "color" => $color,
-                    "schedule_id" => $schedule['id'],
-                    "patient_id" => $_SESSION['user_id'],
-                    "backgroundColor" => '#ff0000',
-                    "borderColor" => '#800000'
-                );
-            }else{
-                $event[] = array(
-                    "title" => $title,
-                    "description" => $title,
-                    "start" => $schedule['start_at'],
-                    "end"   => $schedule['finish_at'],
-                    "color" => $color,
-                    "schedule_id" => $schedule['id'],
-                    "patient_id" => $_SESSION['user_id'],
-                    "backgroundColor" => 'green',
-                    "borderColor" => 'green'
-                );
-            }
         }
+
 
         $this->response->setContentType('application/json');
 

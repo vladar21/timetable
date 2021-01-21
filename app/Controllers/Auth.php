@@ -27,18 +27,17 @@ class Auth extends BaseController
             $pass = $data['password'];
             $verify_pass = password_verify($password, $pass);
             if($verify_pass){
-//                $ses_data = [
-//                    'user_id'       => $data['id'],
-//                    'user_name'     => $data['last_name'],
-//                    'user_email'    => $data['email'],
-//                    'logged_in'     => TRUE
-//                ];
-//                $session->set($ses_data);
-
-                $_SESSION['user_id'] = $data['id'];
-                $_SESSION['user_name'] = $data['last_name'];
-                $_SESSION['user_email'] = $data['email'];
-                $_SESSION['logged_in'] = TRUE;
+                $patientModel = new PatientModel();
+                $patient_id = $patientModel->getPatientByContactId($data['id']);
+                $ses_data = [
+                    'user_id'       => $data['id'],
+                    'patient_id'    => $patient_id,
+                    'user_name'     => $data['last_name'],
+                    'user_email'    => $data['email'],
+                    'logged_in'     => TRUE,
+                    'msg'           => 'Ласкаво просимо! Зелені точки - цей час вільний для запису, червоні - зайнято.'
+                ];
+                $this->session->set($ses_data);
 
                 return redirect()->to('/calendar/index');
             }else{
@@ -91,7 +90,7 @@ class Auth extends BaseController
             'birthday'  => $this->request->getVar('birthday'),
         ];
         //$modelContact->insert($dataContact);
-        $user_id = $modelContact->save($dataContact);
+        $modelContact->save($dataContact);
 
         $contact_id = $modelContact->insertID;
 
@@ -102,10 +101,12 @@ class Auth extends BaseController
         ];
         //$modelPatient->insert($dataPatient);
         $modelPatient->save($dataPatient);
+        $patient_id = $modelPatient->insertID;
 
         $data = [
-            'msg' => 'Ви все зробили чудово. Реєстрація пройшла успішно.',
-            'user_id'       => $user_id,
+            'msg' => "Ви все зробили чудово. Реєстрація пройшла успішно. <br> Зелені точки - цей час вільний для запису, червоні - зайнято.",
+            'user_id'       => $contact_id,
+            'patient_id'    => $patient_id,
             'user_name'     => $dataContact['last_name'],
             'user_email'    => $dataContact['email'],
             'logged_in'     => TRUE

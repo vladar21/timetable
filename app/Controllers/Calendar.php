@@ -30,9 +30,8 @@ class Calendar extends BaseController
 
         //$eventModel = new Calendar_model();
         //$event_data = $eventModel->fetch_all_event();
-        $contact_id = $_SESSION['user_id'];
-        $patientModel = new PatientModel();
-        $patient_id = $patientModel->getPatientByContactId($contact_id);
+        $contact_id = $this->session->get('user_id');
+        $patient_id = $this->session->get('patient_id');
 
         $schedulessModel = new ScheduleModel();
         $scheduless = $schedulessModel->fetch_all_schedule();
@@ -43,9 +42,6 @@ class Calendar extends BaseController
         if ($patient_id == -1){
             // это значати, что авторизовался не пациент (доктор)
         } else{
-            $allScheduleForCurrentUser = $appointmentsModel->getScheduleIdsByPatientId($patient_id);
-            $appointments = $appointmentsModel->fetch_all_appointments();
-
             $docModel = new DocModel();
             $docs = $docModel->findAll();
             $docsIds = $docModel->findColumn('id');
@@ -70,6 +66,7 @@ class Calendar extends BaseController
                     }
                 }
 
+                $allScheduleForCurrentUser = $appointmentsModel->getScheduleIdsByPatientId($patient_id);
                 if (in_array($schedule['id'], $allScheduleForCurrentUser)){
                     $event[] = array(
                         "title" => $title,
@@ -78,7 +75,7 @@ class Calendar extends BaseController
                         "end"   => $schedule['finish_at'],
                         "color" => $color,
                         "schedule_id" => $schedule['id'],
-                        "patient_id" => $_SESSION['user_id'],
+                        "patient_id" => $patient_id,
                         "backgroundColor" => '#ff0000',
                         "borderColor" => '#800000',
                     );
@@ -90,7 +87,7 @@ class Calendar extends BaseController
                         "end"   => $schedule['finish_at'],
                         "color" => $color,
                         "schedule_id" => $schedule['id'],
-                        "patient_id" => $_SESSION['user_id'],
+                        "patient_id" => $patient_id,
                         "backgroundColor" => 'green',
                         "borderColor" => 'green',
                     );
@@ -108,7 +105,7 @@ class Calendar extends BaseController
     {
         $data = [
             'patient_id'  =>  $this->request->getVar('patient_id'),
-            'schedule_id' =>  $this->request->getVar('schedule_id')
+            'schedule_id' =>  $this->request->getVar('schedule_id'),
         ];
 
         $appointmentsModel = new AppointmentModel();
@@ -118,7 +115,7 @@ class Calendar extends BaseController
             $msg =  'Місто вже зайнято! Спробуйте повторити на іншу дату.';
         }
         else{
-            if($appointmentsModel->save($data))
+            if($appointmentsModel->insert($data))
             {
                 $msg =  'Успіх! Ви записані на прийом до лікаря.';
             }

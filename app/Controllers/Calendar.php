@@ -8,19 +8,14 @@ use App\Models\ScheduleModel;
 
 class Calendar extends BaseController
 {
-
-
-
     public function index()
     {
-
         $data = [];
         if (isset($_SESSION['msg'])) {
             $data['msg'] = $_SESSION['msg'];
         }
         $content =  view('calendar/calendar.php', $data);
         return $this->layout($content);
-        //echo view("calendar/index.php", array());
     }
 
     function load()
@@ -28,19 +23,15 @@ class Calendar extends BaseController
 
         $faker = \Faker\Factory::create("uk_UA");
 
-        //$eventModel = new Calendar_model();
-        //$event_data = $eventModel->fetch_all_event();
-        $contact_id = $this->session->get('user_id');
         $patient_id = $this->session->get('patient_id');
 
         $schedulessModel = new ScheduleModel();
         $scheduless = $schedulessModel->fetch_all_schedule();
 
-
         $appointmentsModel = new AppointmentModel();
 
         if ($patient_id == -1){
-            // это значати, что авторизовался не пациент (доктор)
+            // это значит, что авторизовался не пациент (доктор)
         } else{
             $docModel = new DocModel();
             $docs = $docModel->findAll();
@@ -54,9 +45,6 @@ class Calendar extends BaseController
             foreach($scheduless as $schedule)
             {
                 $color = $docColors[$schedule['doc_id']];
-
-                //$schedule_id = in_array($row['id'], array_column($appointments, 'schedule_id')) ? $row['id'] : '';
-//            $description = ($schedule_id != '') ? 'reserved': 'free';
 
                 $title = '';
                 foreach($docs as $doc){
@@ -95,7 +83,6 @@ class Calendar extends BaseController
             }
         }
 
-
         $this->response->setContentType('application/json');
 
         echo json_encode($event);
@@ -112,7 +99,15 @@ class Calendar extends BaseController
         $schedulesIds = $appointmentsModel->getScheduleIdsByPatientId($data['patient_id']);
 
         if (in_array($data['schedule_id'], $schedulesIds)){
-            $msg =  'Місто вже зайнято! Спробуйте повторити на іншу дату.';
+            $patientID = $appointmentsModel->getPatientIdByScheduleId($data['schedule_id']);
+            if ($data['patient_id'] != $patientID){
+                $msg =  'Місто вже зайнято! Спробуйте повторити на іншу дату.';
+            }
+            else{
+                $appointmentsModel->cancelAppointment($data['schedule_id']);
+                $msg = 'Запис до лікаря скасовано.';
+            }
+
         }
         else{
             if($appointmentsModel->insert($data))
@@ -124,30 +119,6 @@ class Calendar extends BaseController
             'msg' => $msg,
         ];
         $this->session->set($data);
-//        return redirect()->to('/calendar');
-
-
     }
-//
-//    function update()
-//    {
-//        if($this->input->post('id'))
-//        {
-//            $data = array(
-//                'title'   => $this->input->post('title'),
-//                'start_event' => $this->input->post('start'),
-//                'end_event'  => $this->input->post('end')
-//            );
-//
-//            $this->fullcalendar_model->update_event($data, $this->input->post('id'));
-//        }
-//    }
-//
-//    function delete()
-//    {
-//        if($this->input->post('id'))
-//        {
-//            $this->fullcalendar_model->delete_event($this->input->post('id'));
-//        }
-//    }
+
 }

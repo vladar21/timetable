@@ -36,28 +36,6 @@
             dayMaxEvents: true, // allow "more" link when too many events
             events: "../calendar/load",
 
-            select: function (info) {
-                alert('selected ' + info.startStr + ' to ' + info.endStr);
-                // var title = prompt('Event Title:');
-                //
-                // if (title) {
-                //
-                //
-                //     $.ajax({
-                //         url: "calendar/create",
-                //         data: 'title=' + title ,
-                //         type: "POST",
-                //         success: function(msg) {
-                //             var events = msg.events;
-                //             callback(events);
-                //         }
-                //     });
-                //     calendar.addEvent({
-                //         title: title
-                //     });
-                // }
-                // calendar.unselect()
-            },
             eventClick: function(info) {
                 var eventObj = info.event;
                 var schedule_id = eventObj.extendedProps['schedule_id'];

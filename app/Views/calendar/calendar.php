@@ -21,6 +21,7 @@
             // ------------------------------ //
             initialView: iv,
             initialDate: id,
+            weekends: false,
 
             datesSet: function (dateInfo) {
                 localStorage.setItem("fcDefaultView", dateInfo.view.type);
@@ -55,7 +56,6 @@
                 }
             },
 
-
             //selectAllow: true,
 
             //initialDate: '2021-01-18',
@@ -69,18 +69,6 @@
             selectable: true,
             dayMaxEvents: true, // allow "more" link when too many events
             events: "../calendar/load",
-            // eventContent: function(arg) {
-            //     let italicEl = document.createElement('i')
-            //
-            //     if (arg.event.extendedProps.isUrgent) {
-            //         italicEl.innerHTML = 'urgent event'
-            //     } else {
-            //         italicEl.innerHTML = 'normal event'
-            //     }
-            //
-            //     let arrayOfDomNodes = [ italicEl ]
-            //     return { domNodes: arrayOfDomNodes }
-            // },
 
             eventClick: function(info) {
                 var eventObj = info.event;
@@ -91,24 +79,20 @@
                     url: "../calendar/create",
                     data: 'schedule_id=' + schedule_id + '&patient_id=' + patient_id,
                     type: "POST",
-                    success: function() {
+                    success: function(data) {
                         calendar.refetchEvents();
+                        $("#messagesID").html(data);
 
                         //location.reload();
                         //return false;
 
                     }
                 });
-
-
-
             },
             //dateClick: function(info) {
             //     alert('clicked ' + info.dateStr);
             // },
         });
-
-
 
         calendar.render();
     });

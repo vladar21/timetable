@@ -39,7 +39,8 @@ class Calendar extends BaseController
             $docColors = array();
 
             foreach($docsIds as $docId){
-                $docColors[$docId] = $faker->hexcolor;
+//                $docColors[$docId] = $faker->hexcolor;
+                $docColors[$docId] = $faker->unique()->randomElement(['Navy', 'Black', 'Maroon']);
             }
 
             foreach($scheduless as $schedule)
@@ -61,11 +62,11 @@ class Calendar extends BaseController
                         //"description" => $title,
                         "start" => $schedule['start_at'],
                         "end"   => $schedule['finish_at'],
-                        "color" => $color,
+                        //"color" => $color,
+                        "textColor" => $color,
                         "schedule_id" => $schedule['id'],
                         "patient_id" => $patient_id,
-                        "backgroundColor" => '#ff0000',
-                        "borderColor" => '#800000',
+                        "backgroundColor" => '#FF7F7F',
                     );
                 }else{
                     $event[] = array(
@@ -73,11 +74,11 @@ class Calendar extends BaseController
                         //"description" => $title,
                         "start" => $schedule['start_at'],
                         "end"   => $schedule['finish_at'],
-                        "color" => $color,
+                        //"color" => $color,
+                        "textColor" => $color,
                         "schedule_id" => $schedule['id'],
                         "patient_id" => $patient_id,
-                        "backgroundColor" => 'green',
-                        "borderColor" => 'green',
+                        "backgroundColor" => '#90EE90',
                     );
                 }
             }
@@ -119,6 +120,10 @@ class Calendar extends BaseController
             'msg' => $msg,
         ];
         $this->session->set($data);
+
+        $msg =  view('msg/message.php', $data);
+
+        return ($msg);
     }
 
 }

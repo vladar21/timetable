@@ -35,7 +35,7 @@ class Auth extends BaseController
                     'user_name'     => $data['last_name'],
                     'user_email'    => $data['email'],
                     'logged_in'     => TRUE,
-                    'msg'           => 'Ласкаво просимо! Зелені точки - цей час вільний для запису, червоні - зайнято.'
+                    'msg'           => 'Ласкаво просимо! Зелений колiр - цей час вільний для запису, червоний - зайнято.'
                 ];
                 $this->session->set($ses_data);
 

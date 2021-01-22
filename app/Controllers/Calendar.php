@@ -58,7 +58,7 @@ class Calendar extends BaseController
                 if (in_array($schedule['id'], $allScheduleForCurrentUser)){
                     $event[] = array(
                         "title" => $title,
-                        "description" => $title,
+                        //"description" => $title,
                         "start" => $schedule['start_at'],
                         "end"   => $schedule['finish_at'],
                         "color" => $color,
@@ -70,7 +70,7 @@ class Calendar extends BaseController
                 }else{
                     $event[] = array(
                         "title" => $title,
-                        "description" => $title,
+                        //"description" => $title,
                         "start" => $schedule['start_at'],
                         "end"   => $schedule['finish_at'],
                         "color" => $color,

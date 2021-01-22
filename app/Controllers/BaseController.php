@@ -28,6 +28,8 @@ class BaseController extends Controller
 	 */
 	protected $helpers = [];
     protected $session;
+    protected $scripts = [];
+
 
 	/**
 	 * Constructor.
@@ -59,7 +61,7 @@ class BaseController extends Controller
 //        $this->styles[] = "home.css";
 //        $this->styles[] = "footer.css";
 
-//        $this->scripts[] = "header.js";
+        $this->scripts[] = "custom.js";
 //        $this->scripts[] = "home.js";
 //
 //        $css_styles = "";
@@ -68,24 +70,27 @@ class BaseController extends Controller
 //                $css_styles .= '<link rel="stylesheet" href="../css/'.$style.'" type="text/css" />';
 //            }
 //        }
-//        $js_scripts = "";
-//        if (!empty($this->scripts)){
-//            foreach ($this->scripts as $key => $script) {
-//                $js_scripts.='<script src="../js/' . $script . '" type="text/javascript"></script>';
-//            }
-//        }
-//        $js_js_init = "";
-//        foreach ($this->js_init as $key => $value) {
-//            $js_js_init.="try{" . $value . "}catch(e){alert('SERVER JS_INIT ERROR: '+e)}\n";
-//        }
-//
-//        $js_scripts.='<script type="text/javascript">$(function () {' . "\n" . $js_js_init . "\n" . '});</script>';
+        $js_scripts = "";
+        if (!empty($this->scripts)){
+            foreach ($this->scripts as $key => $script) {
+                $js_scripts.='<script src="../js/' . $script . '" type="text/javascript"></script>';
+            }
+        }
+        $js_js_init = "";
+        if (!empty($this->js_init)){
+
+            foreach ($this->js_init as $key => $value) {
+            $js_js_init.="try{" . $value . "}catch(e){alert('SERVER JS_INIT ERROR: '+e)}\n";
+        }
+        }
+
+        $js_scripts.='<script type="text/javascript">$(function () {' . "\n" . $js_js_init . "\n" . '});</script>';
 
 //        $result = $content;
 
         $data = [
 //            'styles' => $css_styles,
-//            'scripts' => $js_scripts,
+            'scripts' => $js_scripts,
             'header' => view('header_view'),
             'content' => isset($content) ? $content :  '',
 //            'base_url' => $this->base_url,

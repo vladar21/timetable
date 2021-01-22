@@ -42,18 +42,20 @@
 
     </style>
 
-    <script>
+    <?php echo $scripts; ?>
 
-
-        $(document).ready(function(){
-            // remove messages in top page by click for one
-            $("#messagesID").click(function(){
-                $("#messagesID").find('div:first').remove();
-            });
-
-        });
-
-    </script>
+<!--    <script>-->
+<!---->
+<!---->
+<!--        $(document).ready(function(){-->
+<!--            // remove messages in top page by click for one-->
+<!--            $("#messagesID").click(function(){-->
+<!--                $("#messagesID").find('div:first').remove();-->
+<!--            });-->
+<!---->
+<!--        });-->
+<!---->
+<!--    </script>-->
 
 
 

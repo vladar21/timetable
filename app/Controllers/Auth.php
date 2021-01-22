@@ -17,7 +17,11 @@ class Auth extends BaseController
 
     public function login()
     {
+        $this->js_init[] = 'auth.init("Some error occurred")';
+        $this->js_init[] = 'orders.init('.$count.','.$userId.')';
 
+
+$this->js_init = 'let default_messages = {ERROR_MSG:"Some error occurred"}';
         //$session = $this->session;
         $model = new ContactModel();
         $email = $this->request->getVar('email');

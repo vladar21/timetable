@@ -1,0 +1,17 @@
+{
+  "name": "SampleGrunt",
+  "version": "0.1.0",
+  "author": "vladar21",
+  "private": true,
+  "devDependencies": {
+    "grunt": "~1.3.0",
+    "grunt-postcss": "*",
+    "grunt-contrib-cssmin": "*",
+    "grunt-contrib-sass": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-cssc": "*",
+    "grunt-htmlhint": "*",
+    "matchdep": "*"
+  }
+}

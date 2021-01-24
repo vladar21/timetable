@@ -51,37 +51,38 @@ class BaseController extends Controller
     /**
      * @param $content
      */
-    public function layout($content)
+    public function layout($page, $content)
     {
 //        if ($this->is_ajax){
 //            return;
 //        }
-//        $this->styles[] = "tailwindcss.css";
-//        $this->styles[] = "header.css";
-//        $this->styles[] = "home.css";
-//        $this->styles[] = "footer.css";
+        $this->styles['main'][] = 'tailwindcss.css';
+        $this->styles['main'][] = 'main-custom.min.css';
+        $this->styles['calendar'][] = 'calendar-custom.min.css';
 
-        $this->scripts[] = "custom.js";
-//        $this->scripts[] = "home.js";
-//
-//        $css_styles = "";
-//        if (!empty($this->styles)) {
-//            foreach ($this->styles as $key => $style) {
-//                $css_styles .= '<link rel="stylesheet" href="../css/'.$style.'" type="text/css" />';
-//            }
-//        }
+        $this->scripts['main'][] = 'main.min.js';
+        $this->scripts['calendar'][] = 'calendar.min.js';
+        $this->scripts['calendar'][] = 'fullcalendar-custom.js';
+        $this->scripts['calendar'][] = 'fullcalendar-main.js';
+
+        $css_styles = "";
+        if (!empty($this->styles)) {
+            foreach ($this->styles[$page] as $key => $style) {
+                $css_styles .= '<link rel="stylesheet" href="css/'.$style.'" type="text/css" />';
+            }
+        }
         $js_scripts = "";
         if (!empty($this->scripts)){
-            foreach ($this->scripts as $key => $script) {
-                $js_scripts.='<script src="../js/' . $script . '" type="text/javascript"></script>';
+            foreach ($this->scripts[$page] as $key => $script) {
+                $js_scripts.='<script src="js/' . $script . '" type="text/javascript"></script>';
             }
         }
         $js_js_init = "";
         if (!empty($this->js_init)){
 
             foreach ($this->js_init as $key => $value) {
-            $js_js_init.="try{" . $value . "}catch(e){alert('SERVER JS_INIT ERROR: '+e)}\n";
-        }
+                $js_js_init.="try{" . $value . "}catch(e){alert('SERVER JS_INIT ERROR: '+e)}\n";
+            }
         }
 
         $js_scripts.='<script type="text/javascript">$(function () {' . "\n" . $js_js_init . "\n" . '});</script>';
@@ -89,7 +90,7 @@ class BaseController extends Controller
 //        $result = $content;
 
         $data = [
-//            'styles' => $css_styles,
+            'styles' => $css_styles,
             'scripts' => $js_scripts,
             'header' => view('header_view'),
             'content' => isset($content) ? $content :  '',

@@ -8,12 +8,12 @@
 		"php": ">=7.2",
 		"codeigniter4/framework": "^4",
 		"monken/cli-create": "^0.3.1",
-		"fzaninotto/faker": "^1.9",
       "ext-json": "*"
     },
 	"require-dev": {
 		"mikey179/vfsstream": "1.6.*",
-		"phpunit/phpunit": "^8.5"
+		"phpunit/phpunit": "^8.5",
+		"fzaninotto/faker": "^1.9"
 	},
 	"autoload-dev": {
 		"psr-4": {

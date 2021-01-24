@@ -4,10 +4,9 @@ class Home extends BaseController
 {
 	public function index()
 	{
-
         $data = [];
         $content =  view('home', $data);
-        return $this->layout($content);
+        return $this->layout('main', $content);
 		//return view('welcome_message');
 	}
 

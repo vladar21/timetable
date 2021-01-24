@@ -56,14 +56,13 @@ class BaseController extends Controller
 //        if ($this->is_ajax){
 //            return;
 //        }
-        $this->styles['main'][] = 'tailwindcss.css';
-        $this->styles['main'][] = 'main-custom.min.css';
-        $this->styles['calendar'][] = 'calendar-custom.min.css';
+        if (!isset($page)) $page='main';
+
+        $this->styles['main'][] = 'tailwind.min.css';
+        $this->styles['calendar'][] = 'calendar.min.css';
 
         $this->scripts['main'][] = 'main.min.js';
         $this->scripts['calendar'][] = 'calendar.min.js';
-        $this->scripts['calendar'][] = 'fullcalendar-custom.js';
-        $this->scripts['calendar'][] = 'fullcalendar-main.js';
 
         $css_styles = "";
         if (!empty($this->styles)) {
@@ -77,15 +76,15 @@ class BaseController extends Controller
                 $js_scripts.='<script src="js/' . $script . '" type="text/javascript"></script>';
             }
         }
-        $js_js_init = "";
-        if (!empty($this->js_init)){
+//        $js_js_init = "";
+//        if (!empty($this->js_init)){
+//
+//            foreach ($this->js_init as $key => $value) {
+//                $js_js_init.="try{" . $value . "}catch(e){alert('SERVER JS_INIT ERROR: '+e)}\n";
+//            }
+//        }
 
-            foreach ($this->js_init as $key => $value) {
-                $js_js_init.="try{" . $value . "}catch(e){alert('SERVER JS_INIT ERROR: '+e)}\n";
-            }
-        }
-
-        $js_scripts.='<script type="text/javascript">$(function () {' . "\n" . $js_js_init . "\n" . '});</script>';
+        //$js_scripts.='<script type="text/javascript">$(function () {' . "\n" . $js_js_init . "\n" . '});</script>';
 
 //        $result = $content;
 

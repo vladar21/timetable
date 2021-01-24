@@ -15,7 +15,7 @@ class Calendar extends BaseController
             $data['msg'] = $_SESSION['msg'];
         }
         $content =  view('calendar/calendar.php', $data);
-        return $this->layout($content);
+        return $this->layout('calendar', $content);
     }
 
     function load()

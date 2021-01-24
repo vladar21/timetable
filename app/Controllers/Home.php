@@ -14,7 +14,7 @@ class Home extends BaseController
     {
         $data = [];
         $content =  view('auth/register.php', $data);
-        return $this->layout($content);
+        return $this->layout('main', $content);
         //echo 'Hello World!';
     }
 
@@ -22,7 +22,7 @@ class Home extends BaseController
     {
         $data = [];
         $content =  view('auth/login.php', $data);
-        return $this->layout($content);
+        return $this->layout('main', $content);
         //echo 'Hello World!';
     }
 

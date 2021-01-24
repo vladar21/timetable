@@ -4,7 +4,6 @@
 
     <link type="image/png" rel="icon" href="img/favicon.png" />
 
-
     <!-- Load Font Awesome Icon Library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -16,56 +15,9 @@
 
 <!--    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">-->
 
-    <style>
-
-        body {
-            margin: 40px 10px;
-            padding: 0;
-            font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-            font-size: 14px;
-        }
-
-        #calendar {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .fc .fc-content {
-            /* background-color: #4fc3f7; */
-            padding: 2px;
-        /*    color: #fff; ; */
-
-    /*    make bold title*/
-        .fc-event-title{
-            font-weight: 800;
-        }
-
-    </style>
-
-<!--    --><?php //echo $scripts; ?>
-
-<!--    <script>-->
-<!---->
-<!---->
-<!--        $(document).ready(function(){-->
-<!--            // remove messages in top page by click for one-->
-<!--            $("#messagesID").click(function(){-->
-<!--                $("#messagesID").find('div:first').remove();-->
-<!--            });-->
-<!---->
-<!--        });-->
-<!---->
-<!--    </script>-->
-
-
-
     <?php echo $styles; ?>
-<!--    <script type="text/javascript" src="js/app.js"></script>-->
-
-    <!--        <script type="text/javascript" src="js/ga.js"></script>-->
-
-
     <?php echo $scripts; ?>
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Clinic's schedule</title>
 

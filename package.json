@@ -16,5 +16,9 @@
     "grunt-cssc": "*",
     "grunt-htmlhint": "*",
     "matchdep": "*"
+  },
+  "dependencies": {
+    "bootstrap": "^3.4.0",
+    "jquery": "^3.3.1"
   }
 }

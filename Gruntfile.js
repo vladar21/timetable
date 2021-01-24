@@ -39,7 +39,19 @@ module.exports = function(grunt){
                     'public/css/calendar.min.css': ['src/calendar/css/*.css']
                 }
             }
-        }
+        },
+
+        postcss: {
+            options: {
+
+            },
+            dist: {
+                files: {
+                    'public/js/bootstrap.min.js': ['node_modules/bootstrap/dist/js/bootstrap.min.js'],
+                    'public/js/jquery.min.js': ['node_modules/jquery/dist/jquery.min.js']
+                }
+            }
+        },
 
     });
 

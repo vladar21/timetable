@@ -60,20 +60,30 @@ class BaseController extends Controller
 
         $this->styles['main'][] = 'tailwind.min.css';
         $this->styles['calendar'][] = 'calendar.min.css';
+        $this->styles['calendar'][] = 'tailwind.min.css';
 
-        $this->scripts['main'][] = 'main.min.js';
-        $this->scripts['calendar'][] = 'calendar.min.js';
+        //$this->scripts['main'][] = 'main.min.js';
+        $this->scripts['calendar'][] = 'bootstrap.min.js';
+        //$this->scripts['calendar'][] = 'calendar.min.js';
+        $this->scripts['calendar'][] = 'jquery.min.js';
+        $this->scripts['calendar'][] = 'jquery.validate.js';
+
+//        $this->scripts['calendar'][] = 'fullcalendar-custom.js';
+//        $this->scripts['calendar'][] = 'fullcalendar.main.js';
+//        $this->scripts['calendar'][] = 'custom.js';
+
+
 
         $css_styles = "";
         if (!empty($this->styles)) {
             foreach ($this->styles[$page] as $key => $style) {
-                $css_styles .= '<link rel="stylesheet" href="css/'.$style.'" type="text/css" />';
+                $css_styles .= '<link rel="stylesheet" href="../../css/'.$style.'" type="text/css" />';
             }
         }
         $js_scripts = "";
         if (!empty($this->scripts)){
             foreach ($this->scripts[$page] as $key => $script) {
-                $js_scripts.='<script src="js/' . $script . '" type="text/javascript"></script>';
+                $js_scripts.='<script src="../../js/' . $script . '" type="text/javascript"></script>';
             }
         }
 //        $js_js_init = "";

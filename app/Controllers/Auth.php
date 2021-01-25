@@ -1,15 +1,9 @@
 <?php namespace App\Controllers;
 
-use CodeIgniter\Controller;
-
-//use CodeIgniter\RESTful\ResourceController;
-//use CodeIgniter\API\ResponseTrait;
 use App\Models\AddressModel;
 use App\Models\ContactModel;
 use App\Models\PatientModel;
 
-//class Auth extends ResourceController
-//class Auth extends Controller
 class Auth extends BaseController
 {
     //use ResponseTrait;
@@ -17,7 +11,6 @@ class Auth extends BaseController
 
     public function login()
     {
-
         $model = new ContactModel();
         $email = $this->request->getVar('email');
         $password = $this->request->getVar('password');
@@ -27,10 +20,12 @@ class Auth extends BaseController
             $pass = $data['password'];
             $verify_pass = password_verify($password, $pass);
             if($verify_pass){
+                $user_FIO = $model->userFIO($data['id']);
                 $patientModel = new PatientModel();
                 $patient_id = $patientModel->getPatientByContactId($data['id']);
                 $ses_data = [
                     'user_id'       => $data['id'],
+                    'user_FIO'      => $user_FIO,
                     'patient_id'    => $patient_id,
                     'user_name'     => $data['last_name'],
                     'user_email'    => $data['email'],
@@ -91,7 +86,6 @@ class Auth extends BaseController
             'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
             'birthday'  => $this->request->getVar('birthday'),
         ];
-        //$modelContact->insert($dataContact);
         $modelContact->save($dataContact);
 
         $contact_id = $modelContact->insertID;
@@ -101,13 +95,14 @@ class Auth extends BaseController
             'contact_id' => $contact_id,
             'medical_history'  => $this->request->getVar('medical_history'),
         ];
-        //$modelPatient->insert($dataPatient);
         $modelPatient->save($dataPatient);
         $patient_id = $modelPatient->insertID;
+        $user_FIO = $modelContact->userFIO($contact_id);
 
         $data = [
             'msg' => "Ви все зробили чудово. Реєстрація пройшла успішно. <br> Зелені точки - цей час вільний для запису, червоні - зайнято.",
             'user_id'       => $contact_id,
+            'user_FIO'      => $user_FIO,
             'patient_id'    => $patient_id,
             'user_name'     => $dataContact['last_name'],
             'user_email'    => $dataContact['email'],

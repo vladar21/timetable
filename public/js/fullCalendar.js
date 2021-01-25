@@ -3,17 +3,12 @@ var desk;
 (new (function Desk(){
     var _this = desk = this;
 
-
     this.init = function() {
-
 
         var id = '2021-01-18';
 
         var iv = localStorage.getItem("fcDefaultView") || 'dayGridMonth';
         id = (id) ? id : (localStorage.getItem('fcDefaultDate') || new Date);
-
-
-        //var id = localStorage.getItem('fcDefaultDate') || new Date
 
         var calendarEl = document.getElementById('calendar');
 
@@ -54,9 +49,6 @@ var desk;
                 }
             },
 
-            //selectAllow: true,
-
-            //initialDate: '2021-01-18',
             navLinks: true, // can click day/week names to navigate views
             nowIndicator: true,
 

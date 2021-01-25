@@ -1,5 +1,5 @@
 <div class="text-center text-3xl uppercase mb-3">
-<h1>Форма для входу</h1>
+    <h1>Форма для входу</h1>
 </div>
 
 <div class="bg-gray-100 mx-auto max-w-6xl bg-white py-20 px-12 lg:px-24 shadow-xl mb-24">
@@ -27,7 +27,7 @@
             <div class="-mx-2 md:flex mt-2">
                 <div class="md:w-full px-3">
                     <button class="md:w-full bg-gray-900 text-white font-bold py-2 px-4 border-b-4 hover:border-b-2 border-gray-500 hover:border-gray-100 rounded-full">
-                        Button
+                        Тисніть, та йдемо до розкладу
                     </button>
                 </div>
             </div>

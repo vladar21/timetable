@@ -29,6 +29,8 @@ class BaseController extends Controller
 	protected $helpers = [];
     protected $session;
     protected $scripts = [];
+    protected $styles = [];
+    protected $js_init = [];
 
 
 	/**
@@ -44,59 +46,41 @@ class BaseController extends Controller
 		//--------------------------------------------------------------------
 		// E.g.:
 		$this->session = \Config\Services::session();
-        //session_start();
 
 	}
 
     /**
      * @param $content
      */
-    public function layout($page, $content)
+    public function layout($content = null)
     {
-//        if ($this->is_ajax){
-//            return;
-//        }
-        if (!isset($page)) $page='main';
-
-        $this->styles['main'][] = 'tailwind.min.css';
-        $this->styles['calendar'][] = 'calendar.min.css';
-        $this->styles['calendar'][] = 'tailwind.min.css';
-
-        //$this->scripts['main'][] = 'main.min.js';
-        $this->scripts['calendar'][] = 'bootstrap.min.js';
-        //$this->scripts['calendar'][] = 'calendar.min.js';
-        $this->scripts['calendar'][] = 'jquery.min.js';
-        $this->scripts['calendar'][] = 'jquery.validate.js';
-
-//        $this->scripts['calendar'][] = 'fullcalendar-custom.js';
-//        $this->scripts['calendar'][] = 'fullcalendar.main.js';
-//        $this->scripts['calendar'][] = 'custom.js';
-
-
 
         $css_styles = "";
         if (!empty($this->styles)) {
-            foreach ($this->styles[$page] as $key => $style) {
+
+            foreach ($this->styles as $key => $style) {
                 $css_styles .= '<link rel="stylesheet" href="../../css/'.$style.'" type="text/css" />';
             }
         }
+
         $js_scripts = "";
         if (!empty($this->scripts)){
-            foreach ($this->scripts[$page] as $key => $script) {
+
+            foreach ($this->scripts as $key => $script) {
                 $js_scripts.='<script src="../../js/' . $script . '" type="text/javascript"></script>';
             }
         }
-//        $js_js_init = "";
-//        if (!empty($this->js_init)){
-//
-//            foreach ($this->js_init as $key => $value) {
-//                $js_js_init.="try{" . $value . "}catch(e){alert('SERVER JS_INIT ERROR: '+e)}\n";
-//            }
-//        }
 
-        //$js_scripts.='<script type="text/javascript">$(function () {' . "\n" . $js_js_init . "\n" . '});</script>';
+        $js_js_init = "";
+        if (!empty($this->js_init)){
 
-//        $result = $content;
+            foreach ($this->js_init as $key => $value) {
+                $js_js_init.="try{" . $value . "}catch(e){alert('SERVER JS_INIT ERROR: '+e)}\n";
+            }
+        }
+
+        $js_scripts.='<script type="text/javascript">$(function () {' . "\n" . $js_js_init . "\n" . '});</script>';
+
 
         $data = [
             'styles' => $css_styles,

@@ -17,16 +17,12 @@ class Auth extends BaseController
 
     public function login()
     {
-        $this->js_init[] = 'auth.init("Some error occurred")';
-        $this->js_init[] = 'orders.init('.$count.','.$userId.')';
 
-
-$this->js_init = 'let default_messages = {ERROR_MSG:"Some error occurred"}';
-        //$session = $this->session;
         $model = new ContactModel();
         $email = $this->request->getVar('email');
         $password = $this->request->getVar('password');
         $data = $model->where('email', $email)->first();
+        $ses_data['msg'] = '';
         if($data){
             $pass = $data['password'];
             $verify_pass = password_verify($password, $pass);
@@ -42,18 +38,20 @@ $this->js_init = 'let default_messages = {ERROR_MSG:"Some error occurred"}';
                     'msg'           => 'Ласкаво просимо! Зелений колiр - цей час вільний для запису, червоний - зайнято.'
                 ];
                 $this->session->set($ses_data);
-
                 return redirect()->to('/calendar/index');
             }else{
-                //$session->setFlashdata('msg', 'Помилковий пароль');
-                $_SESSION['msg'] = 'Помилковий пароль';
-                return redirect()->to('/home/login');
+                $ses_data = [
+                    'msg' => 'Помилковий пароль.'
+                ];
             }
         }else{
-            //$session->setFlashdata('msg', 'Email не знайдено');
-            $_SESSION['msg'] = 'Email не знайдено';
-            return redirect()->to('/home/login');
+            $ses_data = [
+                'msg' => 'Email не знайдено.'
+            ];
+
         }
+        $this->session->set($ses_data);
+        return redirect()->to('/home/login');
     }
 
     public function logout()

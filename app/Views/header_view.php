@@ -36,6 +36,19 @@
 </div>
 
 <!-- Messages -->
-<div id="messagesID" class="text-center py-4 lg:px-4 mb-2"></div>
+<?php if (isset($_SESSION['msg']) && $_SESSION['msg'] != '' ): ?>
+    <div id="messagesMainID" class="text-center py-4 lg:px-4 mb-2">
+        <div class="p-2 bg-indigo-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex" role="alert">
+            <span class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">Повiдомлення</span>
+            <span class="font-semibold mr-2 text-left flex-auto"><?= $_SESSION['msg'] ?></span>
+
+                <span>×</span>
+            </button>
+        </div>
+    </div>
+    <?= $_SESSION['msg'] = '' ?>
+<?php endif ?>
+
+
 
 

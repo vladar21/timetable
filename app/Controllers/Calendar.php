@@ -11,11 +11,29 @@ class Calendar extends BaseController
     public function index()
     {
         $data = [];
+
+        $this->styles[] = 'fullcalendar/main.css';
+        $this->scripts[] = 'fullcalendar/main.js';
+        $this->scripts[] = 'fullCalendar.js';
+        $this->js_init[] = "desk.init();";
+
         if (isset($_SESSION['msg'])) {
             $data['msg'] = $_SESSION['msg'];
         }
         $content =  view('calendar/calendar.php', $data);
-        return $this->layout('calendar', $content);
+        return $this->layout( $content);
+    }
+
+
+    public function vasia()
+    {
+
+        $this->scripts[] = 'calendar-vasia.js';
+        $this->js_init[] = "v.init();";
+
+
+        $content =  view('calendar/vasia', []);
+        return $this->layout($content);
     }
 
     function load()

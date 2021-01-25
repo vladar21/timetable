@@ -1,14 +1,13 @@
+var desk;
 
-// <script src='../fullcalendar/main.js'></script>
-//
-//     <script>
-
-
+(new (function Desk(){
+    var _this = desk = this;
 
 
-$(document).ready(function(){
-    var id = '2021-01-18';
-    document.addEventListener('DOMContentLoaded', function() {
+    this.init = function() {
+
+
+        var id = '2021-01-18';
 
         var iv = localStorage.getItem("fcDefaultView") || 'dayGridMonth';
         id = (id) ? id : (localStorage.getItem('fcDefaultDate') || new Date);
@@ -69,7 +68,7 @@ $(document).ready(function(){
             dayMaxEvents: true, // allow "more" link when too many events
             events: "../calendar/load",
 
-            eventClick: function(info) {
+            eventClick: function (info) {
                 var eventObj = info.event;
                 var schedule_id = eventObj.extendedProps['schedule_id'];
                 var patient_id = eventObj.extendedProps['patient_id'];
@@ -78,7 +77,7 @@ $(document).ready(function(){
                     url: "../calendar/create",
                     data: 'schedule_id=' + schedule_id + '&patient_id=' + patient_id,
                     type: "POST",
-                    success: function(data) {
+                    success: function (data) {
                         calendar.refetchEvents();
                         $("#messagesID").html(data);
 
@@ -94,11 +93,15 @@ $(document).ready(function(){
         });
 
         calendar.render();
-    });
 
-    // remove messages in top page by click for one
-    $("#messagesID").click(function(){
-        $("#messagesID").find('div:first').remove();
-    });
+        // remove messages in top page by click for one
+        $("#messagesID").click(function () {
+            $("#messagesID").find('div:first').remove();
+        });
+        // remove messages in top page by click for one
+        $("#messagesMainID").click(function () {
+            $("#messagesMainID").find('div:first').remove();
+        });
 
-}
+    }
+}) ());

@@ -13,6 +13,7 @@ class Calendar extends BaseController
         $data = [];
 
         $this->styles[] = 'fullcalendar/main.css';
+        $this->styles[] = 'fullcalendar/custom.css';
         $this->scripts[] = 'fullcalendar/main.js';
         $this->scripts[] = 'fullCalendar.js';
         $this->js_init[] = "desk.init();";

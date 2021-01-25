@@ -6,8 +6,6 @@ use App\Models\PatientModel;
 
 class Auth extends BaseController
 {
-    //use ResponseTrait;
-
 
     public function login()
     {
@@ -30,7 +28,7 @@ class Auth extends BaseController
                     'user_name'     => $data['last_name'],
                     'user_email'    => $data['email'],
                     'logged_in'     => TRUE,
-                    'msg'           => 'Ласкаво просимо! Зелений колiр - цей час вільний для запису, червоний - зайнято.'
+                    'msg'           => 'Ласкаво просимо! Нагадуемо, що: <br> Зелений колір - цей час вільний для запису, темно-зелений - це ваші записи, червоний - зайнято.'
                 ];
                 $this->session->set($ses_data);
                 return redirect()->to('/calendar/index');
@@ -100,7 +98,7 @@ class Auth extends BaseController
         $user_FIO = $modelContact->userFIO($contact_id);
 
         $data = [
-            'msg' => "Ви все зробили чудово. Реєстрація пройшла успішно. <br> Зелені точки - цей час вільний для запису, червоні - зайнято.",
+            'msg'           => 'Ви все зробили чудово. Реєстрація пройшла успішно. <br> Зелений колір - цей час вільний для запису, темно-зелений - це ваші записи, червоний - зайнято.',
             'user_id'       => $contact_id,
             'user_FIO'      => $user_FIO,
             'patient_id'    => $patient_id,

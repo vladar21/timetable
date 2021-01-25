@@ -54,8 +54,7 @@ class AppointmentModel extends BaseModel
 
     public function getScheduleIdsByPatientId($patient_id)
     {
-        $modelAppointment = new AppointmentModel();
-        $modelAppointment->where('patient_id', $patient_id);
+        $this->where('patient_id', $patient_id);
         $result = $this->findColumn('schedule_id');
 
         return $result;

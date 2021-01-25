@@ -26,6 +26,8 @@ class Calendar extends BaseController
 
         $faker = \Faker\Factory::create("uk_UA");
 
+        $user_id = $this->session->get('user_id');
+
         $patient_id = $this->session->get('patient_id');
 
         $schedulessModel = new ScheduleModel();
@@ -84,7 +86,18 @@ class Calendar extends BaseController
                         "backgroundColor" => '#90EE90',
                     );
                 }
+
             }
+
+            // красим в темно-зелений цвет существующие записи текущего пацинета
+            $schedulesIds = $appointmentsModel->getScheduleIdsByPatientId($patient_id);
+            for($i=0;$i<count($event);$i++){
+                if (in_array($event[$i]['schedule_id'], $schedulesIds)) {
+                    $event[$i]['backgroundColor'] = '#089000';
+                }
+            }
+
+
         }
 
         $this->response->setContentType('application/json');
@@ -116,7 +129,7 @@ class Calendar extends BaseController
         else{
             if($appointmentsModel->insert($data))
             {
-                $msg =  'Успіх! Ви записані на прийом до лікаря.';
+                $msg = 'Успіх! Ви записані на прийом до лікаря.';
             }
         }
         $data = [

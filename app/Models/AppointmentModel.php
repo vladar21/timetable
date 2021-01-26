@@ -60,8 +60,13 @@ class AppointmentModel extends BaseModel
 
     public function getPatientIdByScheduleId($schedule_id)
     {
-        $result = $this->where('schedule_id', $schedule_id)->first();
-        return $result['patient_id'];
+        if ($result = $this->where('schedule_id', $schedule_id)->first()){
+            return $result['patient_id'];
+        }
+        else {
+            return -1;
+        }
+
     }
 
     public function cancelAppointment($schedule_id)

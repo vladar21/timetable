@@ -19,6 +19,16 @@ class ContactModel extends BaseModel
     protected $validationMessages = [];
     protected $skipValidation     = false;
 
+    function getContactById($contact_id){
+        $result = $this->where('id', $contact_id)->first();
+        return $result;
+    }
+
+    function getContactByEmail($email){
+        $result = $this->where('email', $email)->first();
+        return $result;
+    }
+
     function userFIO ($id)
     {
         if ($id >= 0){

@@ -27,4 +27,10 @@ class DocModel extends BaseModel
         $result = (isset($doc)) ? $doc['id'] : -1;
         return $result;
     }
+
+    public function getAllDocs(){
+        $this->findAll();
+        $result = $this->arrayWithKeyFromValue($this->findAll());
+        return $result;
+    }
 }

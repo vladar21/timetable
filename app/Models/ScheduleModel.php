@@ -25,6 +25,6 @@ class ScheduleModel extends BaseModel
     {
         //$this->join('docs', 'schedules.doc_id = docs.id');
         //$this->join('contacts', 'docs.contact_id = contacts.id');
-        return $this->findAll();
+        return $this->arrayWithKeyFromValue($this->findAll());
     }
 }

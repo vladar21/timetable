@@ -9,16 +9,16 @@ class Auth extends BaseController
 
     public function login()
     {
-        $model = new ContactModel();
+        $modelContact = new ContactModel();
         $email = $this->request->getVar('email');
         $password = $this->request->getVar('password');
-        $data = $model->where('email', $email)->first();
+        $data = $modelContact->getContactByEmail($email);
         $ses_data['msg'] = '';
         if($data){
             $pass = $data['password'];
             $verify_pass = password_verify($password, $pass);
             if($verify_pass){
-                $user_FIO = $model->userFIO($data['id']);
+                $user_FIO = $modelContact->userFIO($data['id']);
                 $patientModel = new PatientModel();
                 $patient_id = $patientModel->getPatientByContactId($data['id']);
                 $ses_data = [

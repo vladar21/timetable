@@ -33,7 +33,7 @@
     <div class="flex-none w-10 h-10 flex justify-center">
     <?php if (isset($_SESSION['user_FIO'])): ?>
             <span class="text-xs font-semibold">Користувач: <?= $_SESSION['user_FIO'] ?></span>
-    <? else: ?>
+    <?php else: ?>
         <i class="fa fa-align-justify fa-2x my-2 mr-4" aria-hidden="true"></i>
     <?php endif; ?>
     </div>

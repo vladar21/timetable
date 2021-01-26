@@ -30,12 +30,12 @@ class Database extends \CodeIgniter\Database\Config
 	 * @var array
 	 */
 	public $default = [
-		'DSN'      => '',
-		'hostname' => 'localhost',
-		'username' => '',
-		'password' => '',
-		'database' => '',
-		'DBDriver' => 'MySQLi',
+		'DSN'      => 'postgres://uqgigokyrilpek:9284d7cc4c490a4a56fd7cc39fc12f721cf8afb83d48f36d621cae6d5c6be999@ec2-34-251-118-151.eu-west-1.compute.amazonaws.com:5432/d1n4e2g36qn17j',
+		'hostname' => 'ec2-34-251-118-151.eu-west-1.compute.amazonaws.com',
+		'username' => 'uqgigokyrilpek',
+		'password' => '9284d7cc4c490a4a56fd7cc39fc12f721cf8afb83d48f36d621cae6d5c6be999',
+		'database' => 'd1n4e2g36qn17j',
+		'DBDriver' => 'psql',
 		'DBPrefix' => '',
 		'pConnect' => false,
 		'DBDebug'  => (ENVIRONMENT !== 'production'),
@@ -48,7 +48,7 @@ class Database extends \CodeIgniter\Database\Config
 		'compress' => false,
 		'strictOn' => false,
 		'failover' => [],
-		'port'     => 3306,
+		'port'     => 5432,
 	];
 
 	/**

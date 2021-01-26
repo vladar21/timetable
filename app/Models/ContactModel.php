@@ -1,5 +1,7 @@
 <?php namespace App\Models;
 
+use CodeIgniter\I18n\Time;
+use CodeIgniter\I18n\TimeDifference;
 use CodeIgniter\Model;
 
 class ContactModel extends BaseModel
@@ -15,8 +17,46 @@ class ContactModel extends BaseModel
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
 
-    protected $validationRules    = [];
-    protected $validationMessages = [];
+    protected $validationRules    = [
+        'first_name'    => 'required|alpha',
+        'middle_name'   => 'required|alpha',
+        'last_name'     => 'required|alpha',
+        'phone'         => 'required|numeric|max_length[12]',
+        'email'         => 'required|valid_email|is_unique[contacts.email]',
+        'birthday'      => 'required|valid_date|callback_birthday',
+        'password'      => 'required'
+    ];
+
+    protected $validationMessages = [
+        'first_name'      => [
+            'required'        => 'Ваше ім\'я обов\'язкове.',
+            'alpha'           => 'В цьщму полі можуть бути введені тільки букви.'
+        ],
+        'middle_name'     => [
+            'required'        => 'Ваше по батькові обов\'язкове.'
+        ],
+        'last_name'       => [
+            'required'        => 'Ваша фамілія обов\'язкова.'
+        ],
+        'phone'           => [
+            'required'         => 'Ваш контактний телефон обов\'язковий.',
+            'numeric'          => 'В цьщму полі можуть бути введені тільки цифри.',
+            'max_length'       => 'Максимальна кідлькість цифр у цьщму полі 12.'
+        ],
+        'email'           => [
+            'required'          => 'Ваш контактний email обов\'язковий..',
+            'valid_email'       => 'Помилка в синтаксисі email',
+            'is_unique'         => 'Такий email вже є у базі даних.'
+        ],
+        'birthday'         => [
+            'required'          => 'Дата вашого народження обов\'язкова.',
+            'valid_date'        => 'Помилка в синтаксисі, скористуйтеся календарем.',
+            'callback_birthday' => 'Для користування сервісом, Вам має бути 18 або бльше років.'
+        ],
+        'password'         => [
+            'required'          => 'Пароль обов\'язковий.'
+        ]
+    ];
     protected $skipValidation     = false;
 
     function getContactById($contact_id){

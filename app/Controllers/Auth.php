@@ -59,7 +59,7 @@ class Auth extends BaseController
         helper(['form']);
 //        $validation = \Config\Services::validation();
 
-        //$this->db->transBegin();
+        $this->db->transBegin();
 
         $modelAddress = new AddressModel();
         $dataAddress = [
@@ -71,13 +71,11 @@ class Auth extends BaseController
             'house'  => $this->request->getVar('house'),
             'apartment'  => $this->request->getVar('apartment'),
         ];
-        //$modelAddress->insert($dataAddress);
-        //$modelAddress->save($dataAddress);
+
         if ($modelAddress->save($dataAddress) === false)
         {
             $data = [
                 'errors' => $modelAddress->errors(),
-//                'validation' =>  $validation
             ];
             $this->session->set($data);
             return redirect()->to('/home/register')->withInput();
@@ -96,7 +94,16 @@ class Auth extends BaseController
             'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
             'birthday'  => $this->request->getVar('birthday'),
         ];
-        $modelContact->save($dataContact);
+//        $modelContact->save($dataContact);
+
+        if ($modelContact->save($dataContact) === false)
+        {
+            $data = [
+                'errors' => $modelContact->errors(),
+            ];
+            $this->session->set($data);
+            return redirect()->to('/home/register')->withInput();
+        }
 
         $contact_id = $modelContact->insertID;
 
@@ -121,14 +128,14 @@ class Auth extends BaseController
 
         $this->session->set($data);
 
-//        if ($this->db->transStatus() === FALSE)
-//        {
-//            $this->db->transRollback();
-//        }
-//        else
-//        {
-//            $this->db->transCommit();
-//        }
+        if ($this->db->transStatus() === FALSE)
+        {
+            $this->db->transRollback();
+        }
+        else
+        {
+            $this->db->transCommit();
+        }
 
         return redirect()->to('/calendar');
     }

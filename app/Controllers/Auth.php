@@ -57,6 +57,9 @@ class Auth extends BaseController
     public function create() {
 
         helper(['form']);
+//        $validation = \Config\Services::validation();
+
+        //$this->db->transBegin();
 
         $modelAddress = new AddressModel();
         $dataAddress = [
@@ -69,7 +72,16 @@ class Auth extends BaseController
             'apartment'  => $this->request->getVar('apartment'),
         ];
         //$modelAddress->insert($dataAddress);
-        $modelAddress->save($dataAddress);
+        //$modelAddress->save($dataAddress);
+        if ($modelAddress->save($dataAddress) === false)
+        {
+            $data = [
+                'errors' => $modelAddress->errors(),
+//                'validation' =>  $validation
+            ];
+            $this->session->set($data);
+            return redirect()->to('/home/register')->withInput();
+        }
 
         $address_id = $modelAddress->insertID;
 
@@ -108,6 +120,15 @@ class Auth extends BaseController
         ];
 
         $this->session->set($data);
+
+//        if ($this->db->transStatus() === FALSE)
+//        {
+//            $this->db->transRollback();
+//        }
+//        else
+//        {
+//            $this->db->transCommit();
+//        }
 
         return redirect()->to('/calendar');
     }

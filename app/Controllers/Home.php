@@ -11,7 +11,9 @@ class Home extends BaseController
 
     public function register()
     {
-        $data = [];
+        $data = [
+            'validation' => \Config\Services::validation()
+        ];
         $content =  view('auth/register.php', $data);
         return $this->layout($content);
     }

@@ -48,7 +48,7 @@ class Calendar extends BaseController
                         "end"             => $schedule['finish_at'],
                         "schedule_id"     => $schedule['id'],
                         "patient_id"      => $patient_id,
-                        "backgroundColor" => '#089000',
+                        "backgroundColor" => '#ffa500',
                     );
                 }else {
                     $event[] = array(
@@ -57,7 +57,7 @@ class Calendar extends BaseController
                         "end"             => $schedule['finish_at'],
                         "schedule_id"     => $schedule['id'],
                         "patient_id"      => $patient_id,
-                        "backgroundColor" => '#FF7F7F',
+                        "backgroundColor" => '#8b0000',
                     );
                 }
             }else{
@@ -67,7 +67,7 @@ class Calendar extends BaseController
                     "end"             => $schedule['finish_at'],
                     "schedule_id"     => $schedule['id'],
                     "patient_id"      => $patient_id,
-                    "backgroundColor" => '#0db50d',
+                    "backgroundColor" => '#013220',
                 );
             }
         }

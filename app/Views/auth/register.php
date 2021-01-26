@@ -202,7 +202,13 @@
                     <label class="uppercase tracking-wide text-black text-xs font-bold mb-2" for="password">
                         Пароль
                     </label>
-                    <input class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" id="password" name="password" type="password">
+                    <input class="w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3  <?= (!isset($_SESSION['errors']['password']) || $_SESSION['errors']['password'] == '') ? 'border-gray-200' : 'border-red-500'; ?>" id="password" name="password" type="password">
+                    <?php if (isset($_SESSION['errors']['password']) && $_SESSION['errors']['password'] != ''): ?>
+                        <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+			                <?= print_r($_SESSION['errors']['password'], true); ?>
+		                </span>
+                        <?php $_SESSION['errors']['password'] = ''; ?>
+                    <?php endif; ?>
                 </div>
             </div>
             <br>

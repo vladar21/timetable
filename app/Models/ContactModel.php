@@ -18,19 +18,18 @@ class ContactModel extends BaseModel
     protected $updatedField  = 'updated_at';
 
     protected $validationRules    = [
-        'first_name'    => 'required|alpha',
-        'middle_name'   => 'required|alpha',
-        'last_name'     => 'required|alpha',
+        'first_name'    => 'required',
+        'middle_name'   => 'required',
+        'last_name'     => 'required',
         'phone'         => 'required|numeric|max_length[12]',
         'email'         => 'required|valid_email|is_unique[contacts.email]',
         'birthday'      => 'required|valid_date|callback_birthday',
-        'password'      => 'required'
+        'password'      => 'required',
     ];
 
     protected $validationMessages = [
         'first_name'      => [
-            'required'        => 'Ваше ім\'я обов\'язкове.',
-            'alpha'           => 'В цьщму полі можуть бути введені тільки букви.'
+            'required'        => 'Ваше ім\'я обов\'язкове.'
         ],
         'middle_name'     => [
             'required'        => 'Ваше по батькові обов\'язкове.'
@@ -44,7 +43,7 @@ class ContactModel extends BaseModel
             'max_length'       => 'Максимальна кідлькість цифр у цьщму полі 12.'
         ],
         'email'           => [
-            'required'          => 'Ваш контактний email обов\'язковий..',
+            'required'          => 'Ваш контактний email обов\'язковий.',
             'valid_email'       => 'Помилка в синтаксисі email',
             'is_unique'         => 'Такий email вже є у базі даних.'
         ],

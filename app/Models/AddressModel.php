@@ -24,6 +24,7 @@ class AddressModel extends BaseModel
         'house'     => 'required',
         'apartment' => 'required'
     ];
+
     protected $validationMessages = [
         'zipcode' => [
             'required'   => 'Поштовий індекс адреси прописки обов\'язковий.',

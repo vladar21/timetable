@@ -57,7 +57,6 @@ class Auth extends BaseController
     public function create() {
 
         helper(['form']);
-//        $validation = \Config\Services::validation();
 
         $this->db->transBegin();
 
@@ -91,10 +90,9 @@ class Auth extends BaseController
             'last_name'  => $this->request->getVar('last_name'),
             'phone'  => $this->request->getVar('phone'),
             'email'  => $this->request->getVar('email'),
-            'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
+            'password' => ($this->request->getVar('password')) ? password_hash($this->request->getVar('password'), PASSWORD_DEFAULT) : '',
             'birthday'  => $this->request->getVar('birthday'),
         ];
-//        $modelContact->save($dataContact);
 
         if ($modelContact->save($dataContact) === false)
         {
@@ -112,7 +110,31 @@ class Auth extends BaseController
             'contact_id' => $contact_id,
             'medical_history'  => $this->request->getVar('medical_history'),
         ];
-        $modelPatient->save($dataPatient);
+
+        if ($modelPatient->save($dataPatient) === false)
+        {
+            $data = [
+                'errors' => $modelPatient->errors(),
+            ];
+            $this->session->set($data);
+            return redirect()->to('/home/register')->withInput();
+        }
+
+        if ($this->db->transStatus() === FALSE)
+        {
+            $data = [
+                'errors' => $this->db->errors(),
+            ];
+            $this->db->transRollback();
+
+            $this->session->set($data);
+            return redirect()->to('/home/register')->withInput();
+        }
+        else
+        {
+            $this->db->transCommit();
+        }
+
         $patient_id = $modelPatient->insertID;
         $user_FIO = $modelContact->userFIO($contact_id);
 
@@ -127,15 +149,6 @@ class Auth extends BaseController
         ];
 
         $this->session->set($data);
-
-        if ($this->db->transStatus() === FALSE)
-        {
-            $this->db->transRollback();
-        }
-        else
-        {
-            $this->db->transCommit();
-        }
 
         return redirect()->to('/calendar');
     }

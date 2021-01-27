@@ -15,6 +15,7 @@ class Auth implements FilterInterface
             // then redirect to login page
 
             redirect()->to('home/login');
+            exit;
         }
     }
 

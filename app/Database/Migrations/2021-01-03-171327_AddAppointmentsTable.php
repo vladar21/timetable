@@ -34,8 +34,8 @@ class AddAppointmentsTable extends Migration
             'updated_at'        => [
                 'type'           => 'DATETIME',
             ],
-//            'created_at datetime default current_timestamp',
-//            'updated_at datetime default current_timestamp on update current_timestamp',
+            'created_at timestamp default current_timestamp',
+            'updated_at timestamp not null default current_timestamp on update current_timestamp',
         ]);
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('patient_id','patients','id');

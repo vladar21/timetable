@@ -14,12 +14,7 @@ class Auth implements FilterInterface
         if(!session()->get('logged_in')) {
             // then redirect to login page
 
-            //return redirect()->to('home/login');
-            $data = [
-                'msg' => 'Потрібно зареєструватися або авторизуватися.'
-            ];
-            $content =  view('auth/login.php', $data);
-            return $this->layout($content);
+            return redirect()->to('home/login');
         }
     }
 

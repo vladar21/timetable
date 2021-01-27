@@ -96,7 +96,7 @@ class Calendar extends BaseController
             }
         }
         else{
-            if($appointmentsModel->insert($data))
+            if($appointmentsModel->save($data))
             {
                 $msg = 'Успіх! Ви записані на прийом до лікаря.';
             }

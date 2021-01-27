@@ -14,7 +14,7 @@ class Auth implements FilterInterface
         if(!session()->get('logged_in')) {
             // then redirect to login page
 
-            return redirect()->to('home/login')->withHeaders();
+            redirect()->to('home/login');
         }
     }
 

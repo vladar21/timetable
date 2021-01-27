@@ -79,12 +79,9 @@ class Calendar extends BaseController
 
     function create()
     {
-        $created_at = date("Y-m-d H:i:s");
         $data = [
             'patient_id'  =>  $this->request->getVar('patient_id'),
             'schedule_id' =>  $this->request->getVar('schedule_id'),
-            'created_at'  => $created_at,
-            'updated_at'  => $created_at,
         ];
 
         $appointmentsModel = new AppointmentModel();

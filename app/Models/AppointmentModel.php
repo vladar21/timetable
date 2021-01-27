@@ -1,5 +1,7 @@
 <?php namespace App\Models;
 
+use CodeIgniter\I18n\Time;
+use CodeIgniter\I18n\TimeDifference;
 use CodeIgniter\Model;
 
 class AppointmentModel extends BaseModel
@@ -11,7 +13,7 @@ class AppointmentModel extends BaseModel
 
     protected $allowedFields = ['patient_id', 'schedule_id', 'is_patient_visited'];
 
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
 

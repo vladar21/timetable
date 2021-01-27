@@ -5,9 +5,9 @@ var desk;
 
     this.init = function() {
 
-        var id = '2021-01-18';
+        var id = '2021-02-01';
 
-        var iv = localStorage.getItem("fcDefaultView") || 'dayGridMonth';
+        var iv = localStorage.getItem("fcDefaultView") || 'resourceTimelineWeek';
         id = (id) ? id : (localStorage.getItem('fcDefaultDate') || new Date);
 
         var calendarEl = document.getElementById('calendar');
@@ -64,6 +64,7 @@ var desk;
                 var eventObj = info.event;
                 var schedule_id = eventObj.extendedProps['schedule_id'];
                 var patient_id = eventObj.extendedProps['patient_id'];
+                Console.log(patient_id);
 
                 $.ajax({
                     url: "../calendar/create",

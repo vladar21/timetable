@@ -64,7 +64,6 @@ var desk;
                 var eventObj = info.event;
                 var schedule_id = eventObj.extendedProps['schedule_id'];
                 var patient_id = eventObj.extendedProps['patient_id'];
-                Console.log(patient_id);
 
                 $.ajax({
                     url: "../calendar/create",

@@ -2,6 +2,8 @@
 # Operating Specific Junk Files
 #-------------------------
 
+Procfile
+
 # OS X
 .DS_Store
 .AppleDouble

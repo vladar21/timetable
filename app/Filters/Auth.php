@@ -14,6 +14,7 @@ class Auth implements FilterInterface
         if(!session()->get('logged_in')) {
             // then redirect to login page
 
+            header("Access-Control-Allow-Origin: *");
             return redirect()->to('home/login');
         }
     }

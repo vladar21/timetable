@@ -1,7 +1,7 @@
 <footer class="bg-black text-white mt-10">
 
     <!-- start container -->
-    <div class="container mx-auto pt-8 pb-4">
+    <div class="container mx-auto pt-3 pb-4">
 
         <div class="flex flex-row text-center">
 

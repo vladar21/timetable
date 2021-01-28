@@ -42,6 +42,7 @@ class Calendar extends BaseController
             if (in_array($schedule['id'], $appointmentsScheduleIds)){
                 $patientID = $appointmentModel->getPatientIdByScheduleId($schedule['id']);
                 if ($patientID == $patient_id){
+                    // sign up for an appointment with the doctor
                     $event[] = array(
                         "title"           => $docs[$schedule['doc_id']]['speciality'],
                         "start"           => $schedule['start_at'],
@@ -51,23 +52,25 @@ class Calendar extends BaseController
                         "backgroundColor" => '#ffa500',
                     );
                 }else {
+                    // doctor's appointment time is already taken
                     $event[] = array(
                         "title"           => $docs[$schedule['doc_id']]['speciality'],
                         "start"           => $schedule['start_at'],
                         "end"             => $schedule['finish_at'],
                         "schedule_id"     => $schedule['id'],
                         "patient_id"      => $patient_id,
-                        "backgroundColor" => '#8b0000',
+                        "backgroundColor" => '#d60000',
                     );
                 }
             }else{
+                // doctor's appointment time is still free
                 $event[] = array(
                     "title"           => $docs[$schedule['doc_id']]['speciality'],
                     "start"           => $schedule['start_at'],
                     "end"             => $schedule['finish_at'],
                     "schedule_id"     => $schedule['id'],
                     "patient_id"      => $patient_id,
-                    "backgroundColor" => '#013220',
+                    "backgroundColor" => '#05a100',
                 );
             }
         }

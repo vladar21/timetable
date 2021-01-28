@@ -11,7 +11,7 @@ class PatientModel extends BaseModel
 
     protected $allowedFields = ['contact_id', 'medical_history'];
 
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
 

@@ -12,7 +12,7 @@ class ScheduleModel extends BaseModel
 
     protected $allowedFields = ['id', 'doc_id', 'data_appointment', 'start_at', 'finish_at'];
 
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
     //protected $deletedField  = 'deleted_at';

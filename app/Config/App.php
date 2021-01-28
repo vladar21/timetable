@@ -21,7 +21,7 @@ class App extends BaseConfig
 	| environments.
 	|
 	*/
-	public $baseURL = 'http://appntmnt.heroku.com/';
+	public $baseURL = 'https://appntmnt.heroku.com/';
 
 	/*
 	|--------------------------------------------------------------------------

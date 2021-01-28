@@ -12,7 +12,7 @@ class DocModel extends BaseModel
 
     protected $allowedFields = ['contact_id', 'speciality', 'office', 'hired_at'];
 
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
     //protected $deletedField  = 'deleted_at';

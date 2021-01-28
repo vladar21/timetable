@@ -9,9 +9,9 @@
 <main class="w-full flex items-center">
     <div class="mx-4">
 
-        <div class="flex flex-col md:flex-row">
+        <div class="flex flex-col sm:flex-row">
 
-            <div class="w-1/3 md:w-1">
+            <div class="w-1/3">
                 <div class="bg-white p-8 border-b-4 border-gray-400 rounded-lg flex flex-row items-top sm:mx-2">
                     <div class="text-gray-600 rounded-full p-2">
                         <svg class="h-7 w-7 mr-2 fill-current" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -26,7 +26,7 @@
                 </div>
             </div>
 
-            <div class="w-1/3 md:w-1">
+            <div class="w-1/3">
                 <div class="bg-white p-8 border-b-4 border-gray-400 rounded-lg flex flex-row items-top sm:mx-2">
                     <div class="text-gray-600 rounded-full p-2">
                         <svg class="h-7 w-7 mr-2 fill-current" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -41,7 +41,7 @@
                 </div>
             </div>
 
-            <div class="w-1/3 md:w-1">
+            <div class="w-1/3">
                 <div class="bg-white p-8 border-b-4 border-gray-400 rounded-lg flex flex-row items-top sm:mx-2">
                     <div class="text-gray-600 rounded-full p-2">
                         <svg class="h-7 w-7 mr-2 fill-current" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"

@@ -12,7 +12,7 @@ class DocModel extends BaseModel
 
     protected $allowedFields = ['contact_id', 'speciality', 'office', 'hired_at'];
 
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
     //protected $deletedField  = 'deleted_at';
@@ -25,6 +25,12 @@ class DocModel extends BaseModel
     {
         $doc = $this->where('contact_id', $contact_id)->first();
         $result = (isset($doc)) ? $doc['id'] : -1;
+        return $result;
+    }
+
+    public function getAllDocs(){
+        $this->findAll();
+        $result = $this->arrayWithKeyFromValue($this->findAll());
         return $result;
     }
 }

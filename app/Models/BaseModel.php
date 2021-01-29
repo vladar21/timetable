@@ -4,6 +4,7 @@ use CodeIgniter\Model;
 
 class BaseModel extends Model
 {
+
     // make key array equal key in value
     public function arrayWithKeyFromValue ($array){
         $result = array();

@@ -8,17 +8,21 @@ class PatientModel extends BaseModel
     protected $primaryKey = 'id';
 
     protected $returnType = 'array';
-//    protected $useSoftDeletes = true;
 
     protected $allowedFields = ['contact_id', 'medical_history'];
 
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
-//    protected $deletedField  = 'deleted_at';
 
-    protected $validationRules    = [];
-    protected $validationMessages = [];
+    protected $validationRules    = [
+        'medical_history' => 'required'
+    ];
+    protected $validationMessages = [
+        'medical_history' => [
+            'required' => 'Номер вашої медичної картки обов\'язковий.'
+        ],
+    ];
     protected $skipValidation     = false;
 
     public function getPatientByContactId ($contact_id)

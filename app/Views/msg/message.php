@@ -6,3 +6,4 @@
         <span>×</span>
     </button>
 </div>
+<?= $_SESSION['msg'] = '' ?>

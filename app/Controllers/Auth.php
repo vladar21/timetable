@@ -1,64 +1,58 @@
 <?php namespace App\Controllers;
 
-use CodeIgniter\Controller;
-
-//use CodeIgniter\RESTful\ResourceController;
-//use CodeIgniter\API\ResponseTrait;
 use App\Models\AddressModel;
 use App\Models\ContactModel;
 use App\Models\PatientModel;
 
-//class Auth extends ResourceController
-//class Auth extends Controller
 class Auth extends BaseController
 {
-    //use ResponseTrait;
-
 
     public function login()
     {
-        $this->js_init[] = 'auth.init("Some error occurred")';
-        $this->js_init[] = 'orders.init('.$count.','.$userId.')';
-
-
-$this->js_init = 'let default_messages = {ERROR_MSG:"Some error occurred"}';
-        //$session = $this->session;
-        $model = new ContactModel();
+        $modelContact = new ContactModel();
         $email = $this->request->getVar('email');
         $password = $this->request->getVar('password');
-        $data = $model->where('email', $email)->first();
+        $data = $modelContact->getContactByEmail($email);
+        $ses_data['msg'] = '';
         if($data){
             $pass = $data['password'];
             $verify_pass = password_verify($password, $pass);
             if($verify_pass){
+                $user_FIO = $modelContact->userFIO($data['id']);
                 $patientModel = new PatientModel();
                 $patient_id = $patientModel->getPatientByContactId($data['id']);
                 $ses_data = [
                     'user_id'       => $data['id'],
+                    'user_FIO'      => $user_FIO,
                     'patient_id'    => $patient_id,
                     'user_name'     => $data['last_name'],
                     'user_email'    => $data['email'],
                     'logged_in'     => TRUE,
-                    'msg'           => 'Ласкаво просимо! Зелений колiр - цей час вільний для запису, червоний - зайнято.'
+                    'msg'           => 'Ласкаво просимо! Нагадуемо, що: <br> Зелений колір - цей час вільний для запису, помаранчевий - це ваші записи, червоний - зайнято.'
                 ];
                 $this->session->set($ses_data);
-
                 return redirect()->to('/calendar/index');
+
             }else{
-                //$session->setFlashdata('msg', 'Помилковий пароль');
-                $_SESSION['msg'] = 'Помилковий пароль';
-                return redirect()->to('/home/login');
+                $ses_data = [
+                    'msg' => 'Помилковий пароль. '
+                ];
             }
         }else{
-            //$session->setFlashdata('msg', 'Email не знайдено');
-            $_SESSION['msg'] = 'Email не знайдено';
-            return redirect()->to('/home/login');
+            $ses_data = [
+                'msg' => 'Email не знайдено. '
+            ];
+
         }
+        $this->session->set($ses_data);
+        return redirect()->to('/home/login');
+
     }
 
     public function logout()
     {
         session_destroy();
+
         return redirect()->to('/home/login');
     }
 
@@ -66,6 +60,8 @@ $this->js_init = 'let default_messages = {ERROR_MSG:"Some error occurred"}';
     public function create() {
 
         helper(['form']);
+
+        $this->db->transBegin();
 
         $modelAddress = new AddressModel();
         $dataAddress = [
@@ -77,8 +73,15 @@ $this->js_init = 'let default_messages = {ERROR_MSG:"Some error occurred"}';
             'house'  => $this->request->getVar('house'),
             'apartment'  => $this->request->getVar('apartment'),
         ];
-        //$modelAddress->insert($dataAddress);
-        $modelAddress->save($dataAddress);
+
+        if ($modelAddress->save($dataAddress) === false)
+        {
+            $data = [
+                'errors' => $modelAddress->errors(),
+            ];
+            $this->session->set($data);
+            return redirect()->to('/home/register')->withInput();
+        }
 
         $address_id = $modelAddress->insertID;
 
@@ -90,11 +93,18 @@ $this->js_init = 'let default_messages = {ERROR_MSG:"Some error occurred"}';
             'last_name'  => $this->request->getVar('last_name'),
             'phone'  => $this->request->getVar('phone'),
             'email'  => $this->request->getVar('email'),
-            'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
+            'password' => ($this->request->getVar('password')) ? password_hash($this->request->getVar('password'), PASSWORD_DEFAULT) : '',
             'birthday'  => $this->request->getVar('birthday'),
         ];
-        //$modelContact->insert($dataContact);
-        $modelContact->save($dataContact);
+
+        if ($modelContact->save($dataContact) === false)
+        {
+            $data = [
+                'errors' => $modelContact->errors(),
+            ];
+            $this->session->set($data);
+            return redirect()->to('/home/register')->withInput();
+        }
 
         $contact_id = $modelContact->insertID;
 
@@ -103,13 +113,38 @@ $this->js_init = 'let default_messages = {ERROR_MSG:"Some error occurred"}';
             'contact_id' => $contact_id,
             'medical_history'  => $this->request->getVar('medical_history'),
         ];
-        //$modelPatient->insert($dataPatient);
-        $modelPatient->save($dataPatient);
+
+        if ($modelPatient->save($dataPatient) === false)
+        {
+            $data = [
+                'errors' => $modelPatient->errors(),
+            ];
+            $this->session->set($data);
+            return redirect()->to('/home/register')->withInput();
+        }
+
+        if ($this->db->transStatus() === FALSE)
+        {
+            $data = [
+                'errors' => $this->db->errors(),
+            ];
+            $this->db->transRollback();
+
+            $this->session->set($data);
+            return redirect()->to('/home/register')->withInput();
+        }
+        else
+        {
+            $this->db->transCommit();
+        }
+
         $patient_id = $modelPatient->insertID;
+        $user_FIO = $modelContact->userFIO($contact_id);
 
         $data = [
-            'msg' => "Ви все зробили чудово. Реєстрація пройшла успішно. <br> Зелені точки - цей час вільний для запису, червоні - зайнято.",
+            'msg'           => 'Ви все зробили чудово. Реєстрація пройшла успішно. <br> Зелений колір - цей час вільний для запису, помаранчевий - це ваші записи, червоний - час зайнято.',
             'user_id'       => $contact_id,
+            'user_FIO'      => $user_FIO,
             'patient_id'    => $patient_id,
             'user_name'     => $dataContact['last_name'],
             'user_email'    => $dataContact['email'],

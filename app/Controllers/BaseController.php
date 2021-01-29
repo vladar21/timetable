@@ -26,9 +26,12 @@ class BaseController extends Controller
 	 *
 	 * @var array
 	 */
+	protected $db;
 	protected $helpers = [];
     protected $session;
     protected $scripts = [];
+    protected $styles = [];
+    protected $js_init = [];
 
 
 	/**
@@ -44,39 +47,34 @@ class BaseController extends Controller
 		//--------------------------------------------------------------------
 		// E.g.:
 		$this->session = \Config\Services::session();
-        //session_start();
+        $this->db = \Config\Database::connect();
 
 	}
 
     /**
      * @param $content
      */
-    public function layout($page, $content)
+    public function layout($content = null)
     {
-//        if ($this->is_ajax){
-//            return;
-//        }
-        $this->styles['main'][] = 'tailwindcss.css';
-        $this->styles['main'][] = 'main-custom.min.css';
-        $this->styles['calendar'][] = 'calendar-custom.min.css';
-
-        $this->scripts['main'][] = 'main.min.js';
-        $this->scripts['calendar'][] = 'calendar.min.js';
-        $this->scripts['calendar'][] = 'fullcalendar-custom.js';
-        $this->scripts['calendar'][] = 'fullcalendar-main.js';
+        $this->scripts[] = 'messagesID.js';
+        $this->js_init[] = "removeMessages.init();";
 
         $css_styles = "";
         if (!empty($this->styles)) {
-            foreach ($this->styles[$page] as $key => $style) {
-                $css_styles .= '<link rel="stylesheet" href="css/'.$style.'" type="text/css" />';
+
+            foreach ($this->styles as $key => $style) {
+                $css_styles .= '<link rel="stylesheet" href="../../css/'.$style.'" type="text/css" />';
             }
         }
+
         $js_scripts = "";
         if (!empty($this->scripts)){
-            foreach ($this->scripts[$page] as $key => $script) {
-                $js_scripts.='<script src="js/' . $script . '" type="text/javascript"></script>';
+
+            foreach ($this->scripts as $key => $script) {
+                $js_scripts.='<script src="../../js/' . $script . '" type="text/javascript"></script>';
             }
         }
+
         $js_js_init = "";
         if (!empty($this->js_init)){
 
@@ -87,7 +85,6 @@ class BaseController extends Controller
 
         $js_scripts.='<script type="text/javascript">$(function () {' . "\n" . $js_js_init . "\n" . '});</script>';
 
-//        $result = $content;
 
         $data = [
             'styles' => $css_styles,

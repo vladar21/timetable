@@ -1,0 +1,8 @@
+.fc-event{
+    cursor: pointer;
+}
+
+.fc-more-popover {
+    max-height: 95%;
+    overflow-y: auto;
+}

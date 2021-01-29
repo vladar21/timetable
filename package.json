@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "author": "vladar21",
   "private": true,
+  "scripts": {
+    "build:tailwind": "npx tailwindcss-cli@latest build ./src/tailwindcss/tailwind.css -o ./src/tailwindcss/tailwind-full.css\n"
+  },
   "devDependencies": {
     "grunt": "~1.3.0",
     "grunt-postcss": "*",
@@ -13,5 +16,9 @@
     "grunt-cssc": "*",
     "grunt-htmlhint": "*",
     "matchdep": "*"
+  },
+  "dependencies": {
+    "bootstrap": "^3.4.0",
+    "jquery": "^3.3.1"
   }
 }

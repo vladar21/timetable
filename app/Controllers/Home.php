@@ -5,25 +5,27 @@ class Home extends BaseController
 	public function index()
 	{
         $data = [];
+
         $content =  view('home', $data);
-        return $this->layout('main', $content);
-		//return view('welcome_message');
+        return $this->layout($content);
 	}
 
     public function register()
     {
-        $data = [];
+        $data = [
+            'validation' => \Config\Services::validation()
+        ];
+
         $content =  view('auth/register.php', $data);
         return $this->layout($content);
-        //echo 'Hello World!';
     }
 
     public function login()
     {
         $data = [];
+
         $content =  view('auth/login.php', $data);
         return $this->layout($content);
-        //echo 'Hello World!';
     }
 
 }

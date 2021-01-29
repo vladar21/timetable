@@ -2,7 +2,6 @@
 
 use App\Models\AppointmentModel;
 use App\Models\DocModel;
-use App\Models\PatientModel;
 use App\Models\ScheduleModel;
 
 
@@ -11,76 +10,68 @@ class Calendar extends BaseController
     public function index()
     {
         $data = [];
-        if (isset($_SESSION['msg'])) {
-            $data['msg'] = $_SESSION['msg'];
-        }
+
+        $this->styles[] = 'fullcalendar/main.css';
+        $this->styles[] = 'fullcalendar/custom.css';
+        $this->scripts[] = 'fullcalendar/main.js';
+        $this->scripts[] = 'fullCalendar.js';
+        $this->js_init[] = "desk.init();";
+
         $content =  view('calendar/calendar.php', $data);
-        return $this->layout($content);
+        return $this->layout( $content);
     }
 
     function load()
     {
-
-        $faker = \Faker\Factory::create("uk_UA");
-
         $patient_id = $this->session->get('patient_id');
 
-        $schedulessModel = new ScheduleModel();
-        $scheduless = $schedulessModel->fetch_all_schedule();
+        $appointmentModel = new AppointmentModel();
+        $appointments = $appointmentModel->fetch_all_appointments();
+        $appointmentsSchedules = array_column($appointments, 'schedule');
+        $appointmentsScheduleIds = array_column($appointmentsSchedules, 'id');
 
-        $appointmentsModel = new AppointmentModel();
+        $scheduleModel = new ScheduleModel();
+        $scheduless = $scheduleModel->fetch_all_schedule();
 
-        if ($patient_id == -1){
-            // это значит, что авторизовался не пациент (доктор)
-        } else{
-            $docModel = new DocModel();
-            $docs = $docModel->findAll();
-            $docsIds = $docModel->findColumn('id');
-            $docColors = array();
+        $docModel = new DocModel();
+        $docs = $docModel->getAllDocs();
 
-            foreach($docsIds as $docId){
-//                $docColors[$docId] = $faker->hexcolor;
-                $docColors[$docId] = $faker->unique()->randomElement(['Navy', 'Black', 'Maroon']);
-            }
+        $event = array();
 
-            foreach($scheduless as $schedule)
-            {
-                $color = $docColors[$schedule['doc_id']];
-
-                $title = '';
-                foreach($docs as $doc){
-                    if ($doc['id'] == $schedule['doc_id']) {
-                        $title = $doc['speciality'];
-                        break;
-                    }
-                }
-
-                $allScheduleForCurrentUser = $appointmentsModel->getScheduleIdsByPatientId($patient_id);
-                if (in_array($schedule['id'], $allScheduleForCurrentUser)){
+        foreach($scheduless as $schedule){
+            if (in_array($schedule['id'], $appointmentsScheduleIds)){
+                $patientID = $appointmentModel->getPatientIdByScheduleId($schedule['id']);
+                if ($patientID == $patient_id){
+                    // sign up for an appointment with the doctor
                     $event[] = array(
-                        "title" => $title,
-                        //"description" => $title,
-                        "start" => $schedule['start_at'],
-                        "end"   => $schedule['finish_at'],
-                        //"color" => $color,
-                        "textColor" => $color,
-                        "schedule_id" => $schedule['id'],
-                        "patient_id" => $patient_id,
-                        "backgroundColor" => '#FF7F7F',
+                        "title"           => $docs[$schedule['doc_id']]['speciality'],
+                        "start"           => $schedule['start_at'],
+                        "end"             => $schedule['finish_at'],
+                        "schedule_id"     => $schedule['id'],
+                        "patient_id"      => $patient_id,
+                        "backgroundColor" => '#ffa500',
                     );
-                }else{
+                }else {
+                    // doctor's appointment time is already taken
                     $event[] = array(
-                        "title" => $title,
-                        //"description" => $title,
-                        "start" => $schedule['start_at'],
-                        "end"   => $schedule['finish_at'],
-                        //"color" => $color,
-                        "textColor" => $color,
-                        "schedule_id" => $schedule['id'],
-                        "patient_id" => $patient_id,
-                        "backgroundColor" => '#90EE90',
+                        "title"           => $docs[$schedule['doc_id']]['speciality'],
+                        "start"           => $schedule['start_at'],
+                        "end"             => $schedule['finish_at'],
+                        "schedule_id"     => $schedule['id'],
+                        "patient_id"      => $patient_id,
+                        "backgroundColor" => '#d60000',
                     );
                 }
+            }else{
+                // doctor's appointment time is still free
+                $event[] = array(
+                    "title"           => $docs[$schedule['doc_id']]['speciality'],
+                    "start"           => $schedule['start_at'],
+                    "end"             => $schedule['finish_at'],
+                    "schedule_id"     => $schedule['id'],
+                    "patient_id"      => $patient_id,
+                    "backgroundColor" => '#05a100',
+                );
             }
         }
 
@@ -97,25 +88,23 @@ class Calendar extends BaseController
         ];
 
         $appointmentsModel = new AppointmentModel();
-        $schedulesIds = $appointmentsModel->getScheduleIdsByPatientId($data['patient_id']);
-
-        if (in_array($data['schedule_id'], $schedulesIds)){
-            $patientID = $appointmentsModel->getPatientIdByScheduleId($data['schedule_id']);
-            if ($data['patient_id'] != $patientID){
-                $msg =  'Місто вже зайнято! Спробуйте на іншу дату.';
+        $patientID = $appointmentsModel->getPatientIdByScheduleId($data['schedule_id']);
+        if ($patientID != -1) {
+            if ($patientID != $data['patient_id']){
+                $msg =  'Місто вже зайнято! Спробуйте на інший час.';
             }
             else{
                 $appointmentsModel->cancelAppointment($data['schedule_id']);
                 $msg = 'Запис до лікаря скасовано.';
             }
-
         }
         else{
-            if($appointmentsModel->insert($data))
+            if($appointmentsModel->save($data))
             {
-                $msg =  'Успіх! Ви записані на прийом до лікаря.';
+                $msg = 'Успіх! Ви записані на прийом до лікаря.';
             }
         }
+
         $data = [
             'msg' => $msg,
         ];

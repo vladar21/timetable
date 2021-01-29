@@ -21,7 +21,7 @@ class App extends BaseConfig
 	| environments.
 	|
 	*/
-	public $baseURL = 'http://timetable.local/';
+	public $baseURL = 'http://appntmnt.herokuapp.com/';
 
 	/*
 	|--------------------------------------------------------------------------

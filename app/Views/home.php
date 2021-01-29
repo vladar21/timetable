@@ -1,6 +1,6 @@
-<div class="w-auto flex justify-center bg-gray-200 mt-4">
-    <img class="h-96 w-auto" src="/img/house_md.png" alt="">
-</div>
+<!--<div class="w-auto flex justify-center bg-gray-200 mt-4">-->
+<!--    <img class="h-96 w-auto" src="/img/house_md.png" alt="">-->
+<!--</div>-->
 
 <div class="font-bold text-gray-800 uppercase hover:text-gray-700 text-3xl text-center">
     <h1 class="mt-6 mb-6">Актуальний розклад <br>та онлайн запис на прийом до лікарів</h1>

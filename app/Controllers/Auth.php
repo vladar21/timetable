@@ -35,12 +35,12 @@ class Auth extends BaseController
 
             }else{
                 $ses_data = [
-                    'msg' => 'Помилковий пароль.'
+                    'msg' => 'Помилковий пароль. '
                 ];
             }
         }else{
             $ses_data = [
-                'msg' => 'Email не знайдено.'
+                'msg' => 'Email не знайдено. '
             ];
 
         }
@@ -52,12 +52,8 @@ class Auth extends BaseController
     public function logout()
     {
         session_destroy();
-        //return redirect()->to('/home/login');
-        $data = [
-            'msg' => 'До нової зустрічі!'
-        ];
-        $content =  view('auth/login.php', $data);
-        return $this->layout($content);
+
+        return redirect()->to('/home/login');
     }
 
     // create

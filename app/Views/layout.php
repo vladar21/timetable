@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
-    <link type="image/png" rel="icon" href="img/favicon.png" />
+    <link type="image/ico" rel=”shortcut icon" href="img/time_dob_icon.ico" />
 
     <!-- Load Font Awesome Icon Library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

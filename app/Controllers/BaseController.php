@@ -56,6 +56,8 @@ class BaseController extends Controller
      */
     public function layout($content = null)
     {
+        $this->scripts[] = 'messagesID.js';
+        $this->js_init[] = "removeMessages.init();";
 
         $css_styles = "";
         if (!empty($this->styles)) {

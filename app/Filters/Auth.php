@@ -10,9 +10,15 @@ class Auth implements FilterInterface
     {
 
         // if user not logged in
-        //if(!isset($_SESSION['logged_in'])){
+
         if(!session()->get('logged_in')) {
             // then redirect to login page
+
+            $ses_data = [
+                'msg' => 'Для користування сервісом, треба авторизуватися.'
+            ];
+
+            $this->session->set($ses_data);
 
             return redirect()->to('home/login');
         }

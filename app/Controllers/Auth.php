@@ -32,14 +32,7 @@ class Auth extends BaseController
                 ];
                 $this->session->set($ses_data);
                 return redirect()->to('/calendar/index');
-//                $data = [];
-//                $this->styles[] = 'fullcalendar/main.css';
-//                $this->styles[] = 'fullcalendar/custom.css';
-//                $this->scripts[] = 'fullcalendar/main.js';
-//                $this->scripts[] = 'fullCalendar.js';
-//                $this->js_init[] = "desk.init();";
-//                $content =  view('calendar/calendar.php', $data);
-//                return $this->layout( $content);
+
             }else{
                 $ses_data = [
                     'msg' => 'Помилковий пароль.'

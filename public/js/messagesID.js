@@ -6,8 +6,8 @@ var removeMessages;
     this.init = function() {
 
         // remove messages in top page by click for one
-        $("#messagesID").click(function () {
-            $("#messagesID").find('div:first').remove();
+        $("#messagesMainID").click(function () {
+            $("#messagesMainID").find('div:first').remove();
         });
 
     }

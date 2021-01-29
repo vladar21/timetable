@@ -53,20 +53,18 @@ class Auth extends BaseController
         }
         $this->session->set($ses_data);
         return redirect()->to('/home/login');
-//        $data = [];
-//        $content =  view('auth/login.php', $data);
-//        return $this->layout($content);
+
     }
 
     public function logout()
     {
         session_destroy();
-        return redirect()->to('/home/login');
-//        $data = [
-//            'msg' => 'До нової зустрічі!'
-//        ];
-//        $content =  view('auth/login.php', $data);
-//        return $this->layout($content);
+        //return redirect()->to('/home/login');
+        $data = [
+            'msg' => 'До нової зустрічі!'
+        ];
+        $content =  view('auth/login.php', $data);
+        return $this->layout($content);
     }
 
     // create

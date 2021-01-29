@@ -14,11 +14,7 @@ class Auth implements FilterInterface
         if(!session()->get('logged_in')) {
             // then redirect to login page
 
-            $ses_data = [
-                'msg' => 'Для користування сервісом, треба авторизуватися.'
-            ];
-
-            $this->session->set($ses_data);
+            $_SESSION['msg'] = 'Для користування сервісом, треба авторизуватися.';
 
             return redirect()->to('home/login');
         }

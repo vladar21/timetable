@@ -48,21 +48,24 @@
             <span class="font-semibold mr-2 text-left flex-auto"><?php print_r($_SESSION['msg']); ?></span>
 
                 <span>×</span>
-            </button>
+
         </div>
     </div>
     <?= $_SESSION['msg'] = '' ?>
 <?php endif ?>
 
-<?php if (isset($_SESSION['errors']) && $_SESSION['errors'] != ''): ?>
-    <div class="alert alert-danger">
-        <ul>
-        <?php foreach ($_SESSION['errors'] as $field => $error) : ?>
-            <li><?= $error ?>:&nbsp;<?= $field ?></li>
-        <?php endforeach ?>
-        </ul>
+<?php if (isset($msg) && $msg != '' ): ?>
+    <div id="messagesMainID" class="text-center py-4 lg:px-4 mb-2">
+        <div class="p-2 bg-indigo-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex" role="alert">
+            <span class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">Повiдомлення</span>
+
+            <span class="font-semibold mr-2 text-left flex-auto"><?php print_r($msg); ?></span>
+
+            <span>×</span>
+
+        </div>
     </div>
-    <?= $_SESSION['errors'] = '' ?>
+    <?= $msg = '' ?>
 <?php endif ?>
 
 

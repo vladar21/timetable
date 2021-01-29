@@ -10,7 +10,7 @@
 <!--    <div class="absolute inset-0 h-5/6 bg-gray-900 lg:h-2/3"></div>-->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="relative lg:grid lg:grid-cols-10">
-            <div class="max-w-lg mx-auto lg:max-w-none lg:mx-0 lg:col-start-4 lg:col-end-8 lg:row-start-1 lg:row-end-4">
+            <div class="max-w-lg mx-auto sm:container lg:max-w-none lg:mx-0 lg:col-start-4 lg:col-end-8 lg:row-start-1 lg:row-end-4">
                 <div class="relative z-10 rounded-lg shadow-xl">
                     <div>
                         <div class="pointer-events-none absolute inset-0 rounded-lg border-2 border-teal-500"></div>
@@ -97,7 +97,7 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-6 mx-auto max-w-md lg:m-0 lg:max-w-none lg:col-start-1 lg:col-end-4 lg:row-start-2 lg:row-end-3">
+            <div class="mt-6 mx-auto max-w-md sm:container lg:m-0 lg:max-w-none lg:col-start-1 lg:col-end-4 lg:row-start-2 lg:row-end-3">
                 <div class="h-full flex flex-col rounded-lg shadow-lg overflow-hidden lg:rounded-none lg:rounded-l-lg">
                     <div class="flex-1 flex flex-col border-2 border-teal-500">
                         <div class="bg-white px-6 pt-12 pb-10">
@@ -149,7 +149,7 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-6 mx-auto max-w-md lg:m-0 lg:max-w-none lg:col-start-8 lg:col-end-11 lg:row-start-2 lg:row-end-3">
+            <div class="mt-6 mx-auto max-w-md sm:container lg:m-0 lg:max-w-none lg:col-start-8 lg:col-end-11 lg:row-start-2 lg:row-end-3">
                 <div class="h-full flex flex-col rounded-lg shadow-lg overflow-hidden lg:rounded-none lg:rounded-r-lg">
                     <div class="flex-1 flex flex-col border-2 border-teal-500">
                         <div class="bg-white px-6 pt-12 pb-10">

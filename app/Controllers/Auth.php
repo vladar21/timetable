@@ -31,15 +31,15 @@ class Auth extends BaseController
                     'msg'           => 'Ласкаво просимо! Нагадуемо, що: <br> Зелений колір - цей час вільний для запису, помаранчевий - це ваші записи, червоний - зайнято.'
                 ];
                 $this->session->set($ses_data);
-                //return redirect()->to('/calendar/index');
-                $data = [];
-                $this->styles[] = 'fullcalendar/main.css';
-                $this->styles[] = 'fullcalendar/custom.css';
-                $this->scripts[] = 'fullcalendar/main.js';
-                $this->scripts[] = 'fullCalendar.js';
-                $this->js_init[] = "desk.init();";
-                $content =  view('calendar/calendar.php', $data);
-                return $this->layout( $content);
+                return redirect()->to('/calendar/index');
+//                $data = [];
+//                $this->styles[] = 'fullcalendar/main.css';
+//                $this->styles[] = 'fullcalendar/custom.css';
+//                $this->scripts[] = 'fullcalendar/main.js';
+//                $this->scripts[] = 'fullCalendar.js';
+//                $this->js_init[] = "desk.init();";
+//                $content =  view('calendar/calendar.php', $data);
+//                return $this->layout( $content);
             }else{
                 $ses_data = [
                     'msg' => 'Помилковий пароль.'
@@ -52,21 +52,21 @@ class Auth extends BaseController
 
         }
         $this->session->set($ses_data);
-        //return redirect()->to('/home/login');
-        $data = [];
-        $content =  view('auth/login.php', $data);
-        return $this->layout($content);
+        return redirect()->to('/home/login');
+//        $data = [];
+//        $content =  view('auth/login.php', $data);
+//        return $this->layout($content);
     }
 
     public function logout()
     {
         session_destroy();
-        //return redirect()->to('/home/login');
-        $data = [
-            'msg' => 'До нової зустрічі!'
-        ];
-        $content =  view('auth/login.php', $data);
-        return $this->layout($content);
+        return redirect()->to('/home/login');
+//        $data = [
+//            'msg' => 'До нової зустрічі!'
+//        ];
+//        $content =  view('auth/login.php', $data);
+//        return $this->layout($content);
     }
 
     // create

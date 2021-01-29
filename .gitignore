@@ -2,9 +2,9 @@
 # Operating Specific Junk Files
 #-------------------------
 
-app/Config/*
-app/Config/Database.php
-app/Config/App.php
+#app/Config/*
+#app/Config/Database.php
+#app/Config/App.php
 
 # OS X
 .DS_Store

@@ -41,7 +41,7 @@
 ## Який функціонал вже зроблено
 
 Розроблена база даних  
-[<img width="315" height="560" src='public/img/Timetable.png'>](https://dbdiagram.io/embed/5ffa375380d742080a35a84e)
+[<img width="" height="" src='public/img/Timetable.png'>](https://dbdiagram.io/embed/5ffa375380d742080a35a84e)
 
 Реєстрація та авторизація.  
 

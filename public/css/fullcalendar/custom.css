@@ -7,6 +7,6 @@
     overflow-y: auto;
 }
 
-.fc-event-title .fc-sticky {
-    font-weight: bold;
+.fc-event-title {
+    font-weight: 700;
 }

@@ -6,3 +6,7 @@
     max-height: 95%;
     overflow-y: auto;
 }
+
+.fc-event-title {
+    font-weight: 700;
+}

@@ -30,11 +30,11 @@ class Database extends \CodeIgniter\Database\Config
 	 * @var array
 	 */
 	public $default = [
-		'DSN'      => '',
-		'hostname' => '',
-		'username' => '',
-		'password' => '',
-		'database' => '',
+		'DSN'      => getenv('DSN'),
+		'hostname' => getenv('hostname'),
+		'username' => getenv('username'),
+		'password' => getenv('password'),
+		'database' => getenv('database'),
 		'DBDriver' => 'Postgre',
 		'DBPrefix' => '',
 		'pConnect' => false,

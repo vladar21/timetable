@@ -1,65 +1,64 @@
-# CodeIgniter 4 Application Starter
+# Проект "H": Актуальний розклад та онлайн запис на прийом до лікарів
 
-## What is CodeIgniter?
+## Что таке, це "H"?
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible, and secure. 
-More information can be found at the [official site](http://codeigniter.com).
+"**Н**" - це перша літера в англійському слові "**Hospital**" (лікарня). Цей проект - мій особистий вклад в боротьбу с епідемією **COVID-19**.
 
-This repository holds a composer-installable app starter.
-It has been built from the 
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+Його мета - дати змогу лікарям та їх паціентам витрачати більше часу на саме процесс лікування, а не на бюракратичну волоченю.
 
-More information about the plans for version 4 can be found in [the announcement](http://forum.codeigniter.com/thread-62615.html) on the forums.
+Код проекту має ліцінзію **MIT** та розміщений на публічному репозіторії `https://github.com/vladar21/timetable`.
 
-The user guide corresponding to this version of the framework can be found
-[here](https://codeigniter4.github.io/userguide/). 
+Ліцензія **MIT** (англ. **MIT License**) — група ліцензій, розроблених Массачусетським технологічним інститутом для розповсюдження вільного програмного забезпечення.
 
-## Installation & updates
+Пропоную **всім медичним закладам**, незалежно від їх організаційно-правової форми, **безкоштовно** використовувати цей програмний продукт у своєї діяльності.
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+Запрошую до участі у проекті на принципах волонтерства та взаємодопомоги всіх, хто поділяє ідеї проекту і має достатній для його цілей рівень програмування.
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+Ваші пропозиції прошу направляти на [електронну адресу] `vlad.rastvorov@outlook.com`
 
-## Setup
+## Стек технологій
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+[PHP феймворк Codeigniter 4](https://codeigniter.com/user_guide/intro/index.html) - популярний MVC фреймворк з відкритим кодом.
 
-## Important Change with index.php
+[Tailwind CSS 2](https://tailwindcss.com/) - це "**utility-first**" ("корисність насамперед") **CSS-фреймворк**, що пропонує великий каталог класів і інструментів для полегшення стилізації сайту або програми
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+[jQuery](https://jquery.com/) — популярна **JavaScript**-бібліотека з відкритим кодом.
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+[FullCalendar 5](https://fullcalendar.io/) - це **jQuery** плагін, який може використовувати всім відому технологію **AJAX**. Він має широкі функціональні можливості, легкий в конфігурації, працює з більшістю форматів дати і часу. 
+Так само FullCalendar є плагіном з відкритим вихідним кодом під ліцензією ""MIT""".
 
-**Please** read the user guide for a better explanation of how CI4 works!
-The user guide updating and deployment is a bit awkward at the moment, but we are working on it!
+[PostgreSQL](https://www.postgresql.org/) - це об'єктно-реляційна система управління базами даних (**ОРСУБД**, **ORDBMS**), заснована на **POSTGRES**, Version 4.2 - програмою, що була розроблена на факультеті комп'ютерних наук **Каліфорнійського університету в Берклі**.
+Завдяки вільної ліцензії, **PostgreSQL** дозволяється безкоштовно використовувати, змінювати і поширювати всім і для будь-яких цілей - особистих, комерційних чи навчальних.
 
-## Repository Management
+[GIT](https://git-scm.com/) - розподілена система керування версіями файлів та спільної роботи, яка поширюється безкоштовно та робить можливим ефективну командну роботу над проектом.
 
-We use Github issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+[GitHub репозиторий](https://github.com/vladar21/timetable) - це безкоштовний онлайн сервіс для зберігання коду та його управлінням за допомогою **GIT**.
 
-This repository is a "distribution" one, built by our release preparation script. 
-Problems with it can be raised on our forum, or as issues in the main repository.
+[Heroku](https://heroku.com) - це хмарна PaaS платформа, яка була використана разом с GitHub для органызації автоматичного розгортання ("automatic deploys from GitHub"), управління та масштабування веб-сайту проекта.
 
-## Server Requirements
 
-PHP version 7.2 or higher is required, with the following extensions installed: 
+## Установка и запуск проекта
+
+Клонуйте проект за допомогою командної строки або Bash:  
+`git clone https://github.com/vladar21/timetable.git`
+
+Створить `.env` файл с вашим базовим `url` та конфигурацыєю бази данних, створить базу данных, якщо її нема.  
+
+Виконайте команду:  
+`composer install`
+
+Для запуску веб-сайту проекта налаштуйте ваш віртуал хост, або виконайте команду:  
+`php -S localhost:9090`
+
+
+## Требования к окружению
+
+PHP версії 7.2 або вищчу со следующими расширениями:
 
 - [intl](http://php.net/manual/en/intl.requirements.php)
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
+- [libcurl](http://php.net/manual/en/curl.requirements.php)
+- json (як правило, цей інструмент є по умовчанню)
 - [mbstring](http://php.net/manual/en/mbstring.installation.php)
 - [mysqlnd](http://php.net/manual/en/mysqlnd.install.php)
-- xml (enabled by default - don't turn it off)
-"# timetable" 
+- xml (як правило, цей інструмент є по умовчанню)
+  "# timetable" 

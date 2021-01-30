@@ -39,7 +39,7 @@
                                         </svg>
                                     </div>
                                     <p class="ml-3 text-base font-medium text-gray-500">
-                                        Нічого більше не потрібно, крім доступу до інтернету та броузера на смартфоні, планшеті, ноуті та інь.
+                                        Нічого більше не потрібно, крім доступу до інтернету та броузера на смартфоні, планшеті, ноуті та ін
                                     </p>
                                 </li>
                                 <li class="mt-4 flex items-start">
@@ -51,7 +51,7 @@
                                         </svg>
                                     </div>
                                     <p class="ml-3 text-base font-medium text-gray-500">
-                                        Ніяких черг.
+                                        Ніяких черг
                                     </p>
                                 </li>
                                 <li class="mt-4 flex items-start">
@@ -63,7 +63,7 @@
                                         </svg>
                                     </div>
                                     <p class="ml-3 text-base font-medium text-gray-500">
-                                        Ніяких зайвих комунікацій.
+                                        Ніяких зайвих комунікацій
                                     </p>
                                 </li>
                                 <li class="mt-4 flex items-start">
@@ -75,7 +75,7 @@
                                         </svg>
                                     </div>
                                     <p class="ml-3 text-base font-medium text-gray-500">
-                                        Тільки ти та час, що є вільним для самозапису у розпорядку потрібних тобі лікарів.
+                                        Тільки ти та час, що є вільним для самозапису у роскладі потрібних тобі лікарів
                                     </p>
                                 </li>
 
@@ -89,7 +89,7 @@
                                 <p class="mt-6 text-center text-base font-medium text-gray-900">
                                     Ви вже зареєстровані?
                                     <a href="/home/login" class="text-teal-600 font-semibold hover:underline">
-                                        Тоді зразу до діла →
+                                        Тоді одразу до діла →
                                     </a>
                                 </p>
                             </div>

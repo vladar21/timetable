@@ -1,5 +1,6 @@
 # Проект "H": 
 # Актуальний розклад та онлайн запис на прийом до лікарів
+[![GitHub issues](https://img.shields.io/github/issues/vladar21/timetable)](https://github.com/vladar21/timetable/issues)
 
 `Веб-сайт проекту в інтернеті`:  (https://appntmnt.herokuapp.com/)
 

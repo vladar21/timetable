@@ -4,7 +4,6 @@
 [![GitHub forks](https://img.shields.io/github/forks/vladar21/timetable)](https://github.com/vladar21/timetable/network) 
 [![GitHub stars](https://img.shields.io/github/stars/vladar21/timetable)](https://github.com/vladar21/timetable/stargazers) 
 [![GitHub license](https://img.shields.io/github/license/vladar21/timetable)](https://github.com/vladar21/timetable/blob/main/license.txt) 
-[![Twitter](https://img.shields.io/twitter/url?style=social)]'https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fvladar21%2Ftimetable'
 
 `Веб-сайт проекту в інтернеті`:  (https://appntmnt.herokuapp.com/)
 
